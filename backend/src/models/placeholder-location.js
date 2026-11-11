@@ -1,0 +1,1 @@
+export class PlaceholderLocation{constructor(questionNumber,worksheet,cellAddress){Object.assign(this,{questionNumber,worksheetId:worksheet.id,worksheetName:worksheet.name,cellAddress});Object.freeze(this);}}

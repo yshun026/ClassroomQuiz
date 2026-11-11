@@ -1,0 +1,1 @@
+export function registerSessions(app,c){app.post('/api/teacher/login',(req,res)=>res.json(c.auth.authenticateTeacher(req.body?.password)));app.get('/api/session',(req,res)=>{const s=c.auth.fromRequest(req);if(s.role==='student')c.auth.validateBinding(s);res.json({role:s.role,activityId:s.activityId,...(s.groupNumber?{groupNumber:s.groupNumber}:{})});});}

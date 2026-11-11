@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import request from 'supertest';
+import {createStore} from '../../src/store/runtime-store.js';
+import {AuthorizationService} from '../../src/services/authorization-service.js';
+import {CommandDispatcher} from '../../src/services/command-dispatcher.js';
+import {loadConfig} from '../../src/config.js';
+import {createApp} from '../../src/app.js';
+import {AppError} from '../../src/api/errors.js';
+test('fresh stores are isolated; sessions do not survive restart',()=>{const a=createStore(),b=createStore();const auth=new AuthorizationService(a,'test-secret');const {token}=auth.authenticateTeacher('test-secret');assert.equal(auth.validate(token).role,'teacher');assert.throws(()=>new AuthorizationService(b,'test-secret').validate(token),{code:'SESSION_INVALID'});assert.equal(a.activity,null);assert.equal(b.sessionsByTokenHash.size,0);assert(![...a.sessionsByTokenHash.keys()].includes(token));});
+test('password and role checks cannot be bypassed',()=>{const a=new AuthorizationService(createStore(),'private');assert.throws(()=>a.authenticateTeacher('wrong'),{code:'INVALID_PASSWORD'});const {token}=a.authenticateTeacher('private');assert.throws(()=>a.validate(token,'student'),{code:'STUDENT_REQUIRED'});assert.throws(()=>a.validate('forged'),{code:'SESSION_INVALID'});});
+test('commands are synchronous, ordered; rejects do not mutate activity',()=>{const s=createStore(),d=new CommandDispatcher(s),seen=[];d.run(()=>seen.push(1));d.run(()=>seen.push(2));const before=s.activity;assert.throws(()=>d.run(()=>{throw new AppError('PHASE_CONFLICT');}));assert.equal(s.activity,before);assert.equal(s.commandSequence,3);assert.deepEqual(seen,[1,2]);assert.throws(()=>d.run(async()=>42),/同步/);});
+test('missing or blank admin password refuses startup',()=>{assert.throws(()=>loadConfig({}),/ADMIN_PASSWORD/);assert.throws(()=>loadConfig({ADMIN_PASSWORD:' '}),/ADMIN_PASSWORD/);assert.equal(loadConfig({ADMIN_PASSWORD:'safe'}).host,'localhost');});
+test('HTTP errors are safe and origins restricted',async()=>{const app=createApp({config:loadConfig({ADMIN_PASSWORD:'secret'})});app.get('/api/test-failure',()=>{throw Error('secret internals');});const r=await request(app).get('/api/health').set('Origin','https://outside.invalid');assert.equal(r.status,403);assert(!JSON.stringify(r.body).includes('secret'));const ok=await request(app).get('/api/health');assert.equal(ok.status,200);assert.equal(ok.body.status,'ok');});

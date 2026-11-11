@@ -1,0 +1,117 @@
+@startuml
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+title ClassroomQuiz - Domain and Logical Services
+class Activity {
+ activityId
+ groupCount
+ phase: ActivityPhase
+ currentQuestionNumber
+ stateRevision: internal / teacher only
+}
+enum ActivityPhase {
+ WAITING
+ ANSWERING
+ RESULTS
+ COMPLETED
+}
+class Question {
+ number
+ started
+ closed
+}
+class Group {
+ number
+}
+class Submission {
+ answerText
+ receiveRank
+}
+class Session {
+ identity
+ role: teacher or student
+ studentViewRevision: student only, initially 0
+ lastStudentProjection: nullable immutable
+}
+class GuidedNotesDocument {
+ originalWorkbook
+}
+class PlaceholderLocation {
+ questionNumber
+ worksheet
+ cellAddress
+}
+class AuthorizationService {
+ authenticateTeacher()
+ claimGroup()
+ resumeIdentity()
+ validateRoleAndBinding()
+}
+class ActivityService {
+ prepare()
+ startCurrent()
+ closeCurrent()
+ nextQuestion()
+}
+class SubmissionService {
+ acceptInServerReceiveOrder()
+}
+class GuidedNotesService {
+ validateAndImport()
+ exportClosedWinnerSnapshot()
+}
+class SynchronizationService {
+ teacherView()
+ studentView()
+ resumeView()
+}
+class RuntimeStore
+Activity "1" *-- "1..*" Question : ordered
+Activity "1" *-- "1..*" Group
+Activity "1" *-- "1" GuidedNotesDocument
+Activity --> ActivityPhase
+Question "1" *-- "0..*" Submission
+Group "1" -- "0..*" Submission
+Group "0..1" -- "0..1" Session : student binding
+GuidedNotesDocument "1" *-- "1..*" PlaceholderLocation
+Question "1" -- "1" PlaceholderLocation
+AuthorizationService ..> Session
+AuthorizationService ..> Group
+ActivityService ..> Activity
+ActivityService ..> AuthorizationService
+SubmissionService ..> AuthorizationService
+SubmissionService ..> Activity
+SubmissionService ..> Submission
+GuidedNotesService ..> AuthorizationService
+GuidedNotesService ..> GuidedNotesDocument
+GuidedNotesService ..> Submission : closed-question minimum rank
+SynchronizationService ..> AuthorizationService
+SynchronizationService ..> Activity
+SynchronizationService ..> Submission : role-filtered
+ActivityService ..> RuntimeStore
+SubmissionService ..> RuntimeStore
+GuidedNotesService ..> RuntimeStore
+AuthorizationService ..> RuntimeStore
+SynchronizationService ..> RuntimeStore
+note bottom of Submission
+ Unique (activity, question, group).
+ Rank is unique and consecutive per question.
+ First accepted submission wins; no correctness check.
+ Close and submit share one consistent server order.
+end note
+note bottom of Question
+ Only one ANSWERING question; closed is irreversible.
+ Non-final close -> RESULTS -> Next -> WAITING.
+ Final close -> COMPLETED with published results.
+end note
+note bottom of Session
+ Multiple tabs may share one browser identity.
+ Teacher sessions do not claim student groups.
+ Student revision changes only with its visible data.
+ Other-group submissions cause no revision or event.
+end note
+note bottom of PlaceholderLocation
+ One whole-cell {{Qn}} per question; contiguous Q1..QN.
+ Preserve original workbook outside filled cells.
+end note
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam shadowing false
+title ClassroomQuiz - Logical Components
+actor Teacher
+actor Student
+component "Teacher Browser" as TB
+component "Student Browser" as SB
+package "Local Backend" {
+ component "Role / Session Validation" as Auth
+ component "Activity Management\nWAITING / ANSWERING / RESULTS / COMPLETED" as Activity
+ component "Submission Management\nServer receive order / one per group-question" as Quiz
+ component "Guided Notes Import / Export\nValidate placeholders / preserve workbook" as Notes
+ component "State Synchronization\nRole-filtered views / reconnect" as Sync
+ database "Runtime Activity Store\nOriginal workbook + mappings\nSessions / groups / questions / submissions" as Store
+}
+Teacher --> TB
+Student --> SB
+TB --> Auth : password / privileged operations
+SB --> Auth : claim group / resume identity
+Auth --> Activity : teacher commands / authorized views
+Auth --> Quiz : validated student submission
+Auth --> Notes : teacher-only import / export
+Activity --> Quiz : open / close in same processing order
+Activity --> Store
+Quiz --> Store
+Notes --> Store : atomic import / export snapshot
+Activity --> Sync : phase / question changes
+Quiz --> Sync : accepted submission
+Sync --> Store : current authoritative state
+Sync --> TB : all submissions + status + rank\nteacher-only global stateRevision
+Sync --> SB : phase + question + own status + studentViewRevision\nno event for another group's submission\nall accepted answers / ranks only after close
+TB --> Notes : .xlsx downloaded from Google Sheets
+Notes --> TB : .xlsx copy with closed-question winners
+note bottom of Store
+ Retained during backend lifetime; restart may clear.
+ No public cloud deployment or direct Sheets integration.
+end note
+note bottom of Notes
+ Export never changes activity state.
+ .xlsx acceptability and placeholder permission:
+ external confirmation pending (OI-001 / OI-002).
+end note
+@enduml

@@ -1,0 +1,84 @@
+@startuml
+skinparam shadowing false
+hide footbox
+title ClassroomQuiz - Authorized Quiz Lifecycle
+actor Teacher
+participant "Teacher Browser" as TB
+participant "Student Browsers" as SB
+participant "Authorization" as Auth
+participant "Backend Ordered Processing\nActivity / Submission" as B
+participant "Runtime Store" as DB
+participant "Role-filtered Sync" as Sync
+participant "Guided Notes" as Notes
+note over TB,DB
+ Precondition: password authenticated, valid workbook imported,
+ groups configured, browser identities bound; current Qn WAITING.
+ All commands validate identity, role, activity and question.
+end note
+Teacher -> TB : Start current question
+TB -> Auth : start(Qn, teacher identity)
+Auth -> B : validated teacher
+B -> DB : WAITING -> ANSWERING
+B -> Sync : current phase / Qn
+Sync -> SB : ANSWERING / Qn + per-session studentViewRevision
+loop submissions in backend receive-processing order
+ SB -> Auth : submit(identity, activity, Qn, answer)
+ Auth -> B : validated group binding
+ alt ANSWERING, correct activity/question, nonblank, no prior submission
+  critical acceptance and rank assignment
+   B -> DB : accept one (Qn, group), assign next rank
+  end
+  B -> Sync : accepted submission
+  Sync -> TB : group / answer / rank / status + teacher stateRevision
+  Sync -> SB : only submitting Session's tabs: own status + studentViewRevision
+  note over Sync,SB
+   Non-submitting student Sessions receive no event or empty notification.
+   Their studentViewRevision and queried visible data remain unchanged.
+   Global stateRevision is never included in student responses.
+  end note
+ else duplicate / blank / closed / stale question / invalid identity
+  B --> SB : reject with reason; preserve prior data
+ end
+end
+Teacher -> TB : End current question
+TB -> Auth : close(Qn, teacher identity)
+Auth -> B : validated teacher
+critical same consistent processing order as submit
+ B -> DB : close Qn; freeze accepted submissions
+ alt non-final question
+  B -> DB : phase = RESULTS
+ else final question
+  B -> DB : phase = COMPLETED (results published)
+ end
+end
+B -> Sync : published results + phase / Qn
+Sync -> TB : accepted groups / answers / ranks / winner
+Sync -> SB : closed results + per-session studentViewRevision (all joined)
+note over B,SB : No accepted submissions -> display "No answers" (UI: 無人作答).
+SB -> Auth : late submission
+Auth -> B : validated student
+B --> SB : reject: question closed
+SB -> Auth : view results / reconnect
+Auth -> Sync : authorized current view
+Sync -> DB : read phase / Qn / allowed results
+Sync --> SB : restore authoritative view, no new submission
+opt non-final RESULTS and teacher presses Next
+ TB -> Auth : nextQuestion(teacher identity)
+ Auth -> B : validated teacher
+ B -> DB : next Qn+1, WAITING
+ B -> Sync : phase / next question
+ Sync -> SB : WAITING (manual Start still required)
+end
+group export allowed at any prepared activity phase (independent of lifecycle above)
+ TB -> Auth : export(teacher identity)
+ Auth -> Notes : validated teacher
+ Notes -> DB : consistent snapshot + original workbook + mappings
+ DB --> Notes : closed questions / accepted ranks / original
+ Notes -> Notes : copy workbook; fill closed-question minimum-rank answers\nleave unanswered/open placeholders; preserve content/format
+ Notes --> TB : .xlsx copy; activity unchanged
+end
+note over B,DB
+ Concurrent close / submit: accepted only if processed before close.
+ No client-clock ranking, reopening, score or correctness validation.
+end note
+@enduml

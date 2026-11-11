@@ -1,0 +1,11 @@
+import React,{useEffect,useState} from 'react';
+import {api} from '../services/api.js';
+import {getToken,saveToken,clearToken} from '../services/session.js';
+export default function TeacherPage(){
+ const [ready,setReady]=useState(false),[password,setPassword]=useState(''),[groups,setGroups]=useState('3'),[view,setView]=useState(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ async function refresh(){const s=await api('/session');if(s.role!=='teacher'){clearToken();throw Error('請使用老師身分登入');}setView(await api('/activity'));setReady(true);}
+ useEffect(()=>{if(getToken())refresh().catch(e=>{setError(e.message);setReady(false);});},[]);
+ async function act(work){setBusy(true);setError('');try{await work();}catch(e){setError(e.message);if(e.code==='SESSION_INVALID')setReady(false);}finally{setBusy(false);}}
+ async function login(e){e.preventDefault();await act(async()=>{const result=await api('/teacher/login',{method:'POST',body:{password}});saveToken(result.token);setPassword('');await refresh();});}
+ return <section><h2>老師端</h2>{error&&<p role="alert">{error}</p>}{!ready?<form onSubmit={login}><label>管理密碼<input type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required/></label><button disabled={busy}>登入</button></form>:<><p role="status">{view?.phase?`第 ${view.currentQuestionNumber} 題 · ${view.phase} · 共 ${view.questionCount} 題`:'活動尚未準備完成'}</p>{!view?.phase?<><form onSubmit={e=>{e.preventDefault();act(async()=>{await api('/preparation/groups',{method:'PUT',body:{groupCount:Number(groups)}});await refresh();});}}><label>參與組數<input type="number" min="1" step="1" value={groups} onChange={e=>setGroups(e.target.value)} required/></label><button disabled={busy}>設定組數</button></form><p>已設定組數：{view?.groupCount??'尚未設定'}</p><label>匯入 Guided Notes（.xlsx）<input type="file" accept=".xlsx" disabled={busy} onChange={e=>{const file=e.target.files?.[0];if(!file)return;act(async()=>{const body=new FormData();body.append('file',file);await api('/preparation/guided-notes',{method:'POST',body});await refresh();});e.target.value='';}}/></label><p>文件：{view?.documentValidated?'已驗證':'尚未匯入'}</p></>:<p>準備完成。題號依序排列；搶答控制將於單題功能階段提供。</p>}</>}{busy&&<p role="status">處理中…</p>}</section>;
+}
