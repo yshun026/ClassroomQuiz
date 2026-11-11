@@ -8,7 +8,7 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 **Prerequisites**: plan.md、spec.md、research.md、data-model.md、contracts/、quickstart.md、Constitution 1.0.0。
 **Tests**: spec SC-007 與 Constitution VI 明定自動及人工測試，故納入必要測試任務。
 **Organization**: 五個故事皆 P1，按規格順序排列。此命令只產生本文件，不實作或執行下列任務。
-**Status**: T001–T023 已完成，Phase 1–3 驗證通過；T023 人工結果由使用者確認，見 tests/records/us1.md；T024–T029 已完成，T030 人工重開待確認，T031–T062 未開始，兩項外部課程議題仍為 PENDING。
+**Status**: T001–T023 已完成，Phase 1–3 驗證通過；T023 人工結果由使用者確認，見 tests/records/us1.md；T024–T029 已完成，T030 人工驗證已由使用者確認完成，T031–T041 已完成自動驗證，T042 人工驗收已由使用者確認完成，T043–T062 未開始，兩項外部課程議題仍為 PENDING。
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -97,7 +97,7 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 - [X] T027 [US2] 在 backend/src/services/synchronization-service.js 建立 studentView/resumeView，整合 T021 已完成的教師投影而不改其端點；學生 Session 新增 studentViewRevision「integer initially 0」及 lastStudentProjection「nullable immutable object」，初始投影版本為 0，只隨自己的可見業務資料改變遞增，不暴露 stateRevision／全域計數；closed 題結果另公開，組別占用不含作答狀態。
 - [X] T028 [US2] 在 backend/src/api/group-routes.js 實作 join-options/claim，並在 T021 既有 backend/src/api/activity-routes.js 的唯一 GET /activity handler 擴充 T027 學生安全投影分支；不另建重複路由、不覆蓋教師分支，依賴 T021/T026/T027；未知活動及 Token 依合約回錯誤。
 - [X] T029 [US2] 在 frontend/src/pages/StudentPage.jsx 與 frontend/src/services/session.js 整合可選組別、已占用原因、恢復自己的綁定、重啟失效及晚加入畫面，不增加換組／踢除／帳號管理。
-- [ ] T030 [US2] 在 tests/records/us2.md 保存 T024–T025 實際執行與人工重開結果，核對 FR-004–006、025、029 與 AC-02/09，未驗證平台條件須如實標記。
+- [X] T030 [US2] 在 tests/records/us2.md 保存 T024–T025 實際執行與人工重開結果，核對 FR-004–006、025、029 與 AC-02/09，未驗證平台條件須如實標記。
 
 **Checkpoint**: 身分故事可獨立測試；即時 socket 與提交留給 US3/US4，不改動身分規則。
 
@@ -110,21 +110,21 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 
 ### Tests for User Story 3
 
-- [ ] T031 [P] [US3] 在 backend/tests/integration/quiz-http.test.js 為 start/close/submissions/results 端點寫合約測試，含所有教師操作未授權、空白、重複、WAITING/RESULTS/COMPLETED 拒收、舊活動／題號、無人作答、禁止重開及查未閉題資料不洩漏。
-- [ ] T032 [P] [US3] 在 backend/tests/unit/submission-order.test.js 寫至少三組及同組雙請求競爭，受控 submit-before-close/close-before-submit，非法提交不占順位、第一筆後仍可提交、更改裝置時間不影響結果；禁止以人手點擊猜順位。
-- [ ] T033 [P] [US3] 在 backend/tests/integration/quiz-socket-isolation.test.js 寫單題 start/submit/close 到畫面所需推送的合約測試及 HTTP/ack/錯誤隔離測試：固定觀察組的題號、階段及自身狀態，讓其他已加入組提交，觀察組不得收到任何額外業務事件或空通知，重查 HTTP/state:request 的可見資料及 studentViewRevision 不變、所有回覆/header 無全域 stateRevision／commandSequence；教師及提交組更新、同組頁籤同步，閉題才公開結果。初次連線與明確 state:request 回覆須可用；完整斷線重連側通道測試由 T043 擴充。
+- [X] T031 [P] [US3] 在 backend/tests/integration/quiz-http.test.js 為 start/close/submissions/results 端點寫合約測試，含所有教師操作未授權、空白、重複、WAITING/RESULTS/COMPLETED 拒收、舊活動／題號、無人作答、禁止重開及查未閉題資料不洩漏。
+- [X] T032 [P] [US3] 在 backend/tests/unit/submission-order.test.js 寫至少三組及同組雙請求競爭，受控 submit-before-close/close-before-submit，非法提交不占順位、第一筆後仍可提交、更改裝置時間不影響結果；禁止以人手點擊猜順位。
+- [X] T033 [P] [US3] 在 backend/tests/integration/quiz-socket-isolation.test.js 寫單題 start/submit/close 到畫面所需推送的合約測試及 HTTP/ack/錯誤隔離測試：固定觀察組的題號、階段及自身狀態，讓其他已加入組提交，觀察組不得收到任何額外業務事件或空通知，重查 HTTP/state:request 的可見資料及 studentViewRevision 不變、所有回覆/header 無全域 stateRevision／commandSequence；教師及提交組更新、同組頁籤同步，閉題才公開結果。初次連線與明確 state:request 回覆須可用；完整斷線重連側通道測試由 T043 擴充。
 
 ### Implementation for User Story 3
 
-- [ ] T034 [US3] 在 backend/src/models/submission.js 建立「activityId; questionNumber; groupNumber; answerText: string; submissionSequence: integer; receiveRank: integer」及「僅已接受提交；唯一 (activity,question,group)；receiveRank = submissionSequence，題內 1..K」，不保存未接受提交為有效答案。
-- [ ] T035 [US3] 在 backend/src/services/question-service.js 與 backend/src/services/activity-service.js 實作當題 start/close：WAITING 才開、ANSWERING 才閉、無人亦可閉、非最後題 RESULTS／最後題 COMPLETED，closed 永不可逆；狀態變更走 T009，不能 await 檢查與寫入。
-- [ ] T036 [US3] 在 backend/src/services/submission-service.js 實作同步驗 Token/活動/題號/組別/ANSWERING/nonblank/唯一鍵後才遞增 nextSubmissionSequence，生成不可變 Submission；與 close 共用 T009，拒絕不覆寫答案、不增加順位，不進行正確性判斷。
-- [ ] T037 [US3] 在 backend/src/services/synchronization-service.js 擴充教師完整提交與 closed 結果、學生 ownSubmission／closed publishedResults；內部 stateRevision 只給老師，學生沿用 T027 的 studentViewRevision，更新投影時排除版本及 metadata 後比較；他組提交不得改本組投影／版本，唯提交組及教師產生更新，不以空事件或通知暴露他組活動；無人顯示 noAnswers。
-- [ ] T038 [US3] 在 backend/src/api/question-routes.js 與 backend/src/api/submission-routes.js 實作 T031 端點及逐次權限／當題識別檢查；POST 提交回覆僅自己的成功狀態，GET results 不提供未閉題答案。
-- [ ] T039 [US3] 在 backend/src/realtime/socket-server.js 實作 Token handshake、每次 state:request 再驗權、初始快照與教師／學生分流，並於本 US3 完成 start、accepted-submit、close 的即時推送：開始／閉題公布給全部已加入者，提交只給教師與提交組全部頁籤，其他學生零事件；初始快照及訂閱原子整合，單題最後題 COMPLETED 亦公布；依賴 T035–T038 並串接 app/server，不能延至 T046。禁止 client 選 room、業務命令只走 HTTP。
-- [ ] T040 [US3] 在 frontend/src/services/realtime.js 實作 Socket.IO client、單題全量快照與斷線提示；教師按 activityId/stateRevision、學生按 activityId/Session/studentViewRevision 去除倒退快照，不讀取或推算全域版本；同版本可忽略，不同 Session 重設基準，不自動重送答案，完整重連恢復在 US4 擴充。
-- [ ] T041 [US3] 在 frontend/src/pages/TeacherPage.jsx 與 frontend/src/pages/StudentPage.jsx 整合手動開始／結束、文字答案、自己的已提交、教師即時紀錄及已公布結果；回覆遺失先查後端，閉題無人顯示「無人作答」，所有答案以文字呈現。
-- [ ] T042 [US3] 在 tests/records/us3.md 保存 T031–T033 實際結果及單題人工流程，確認 US3 不依賴 US4 即可開始、提交、教師即時查看、閉題與公布（含最後題 COMPLETED）；正常連線單題更新須符合 2 秒，側通道測試需有其他學生零事件／版本不變的證據，核對 FR-011–019、021–024、030；任何失敗修正重跑。
+- [X] T034 [US3] 在 backend/src/models/submission.js 建立「activityId; questionNumber; groupNumber; answerText: string; submissionSequence: integer; receiveRank: integer」及「僅已接受提交；唯一 (activity,question,group)；receiveRank = submissionSequence，題內 1..K」，不保存未接受提交為有效答案。
+- [X] T035 [US3] 在 backend/src/services/question-service.js 與 backend/src/services/activity-service.js 實作當題 start/close：WAITING 才開、ANSWERING 才閉、無人亦可閉、非最後題 RESULTS／最後題 COMPLETED，closed 永不可逆；狀態變更走 T009，不能 await 檢查與寫入。
+- [X] T036 [US3] 在 backend/src/services/submission-service.js 實作同步驗 Token/活動/題號/組別/ANSWERING/nonblank/唯一鍵後才遞增 nextSubmissionSequence，生成不可變 Submission；與 close 共用 T009，拒絕不覆寫答案、不增加順位，不進行正確性判斷。
+- [X] T037 [US3] 在 backend/src/services/synchronization-service.js 擴充教師完整提交與 closed 結果、學生 ownSubmission／closed publishedResults；內部 stateRevision 只給老師，學生沿用 T027 的 studentViewRevision，更新投影時排除版本及 metadata 後比較；他組提交不得改本組投影／版本，唯提交組及教師產生更新，不以空事件或通知暴露他組活動；無人顯示 noAnswers。
+- [X] T038 [US3] 在 backend/src/api/question-routes.js 與 backend/src/api/submission-routes.js 實作 T031 端點及逐次權限／當題識別檢查；POST 提交回覆僅自己的成功狀態，GET results 不提供未閉題答案。
+- [X] T039 [US3] 在 backend/src/realtime/socket-server.js 實作 Token handshake、每次 state:request 再驗權、初始快照與教師／學生分流，並於本 US3 完成 start、accepted-submit、close 的即時推送：開始／閉題公布給全部已加入者，提交只給教師與提交組全部頁籤，其他學生零事件；初始快照及訂閱原子整合，單題最後題 COMPLETED 亦公布；依賴 T035–T038 並串接 app/server，不能延至 T046。禁止 client 選 room、業務命令只走 HTTP。
+- [X] T040 [US3] 在 frontend/src/services/realtime.js 實作 Socket.IO client、單題全量快照與斷線提示；教師按 activityId/stateRevision、學生按 activityId/Session/studentViewRevision 去除倒退快照，不讀取或推算全域版本；同版本可忽略，不同 Session 重設基準，不自動重送答案，完整重連恢復在 US4 擴充。
+- [X] T041 [US3] 在 frontend/src/pages/TeacherPage.jsx 與 frontend/src/pages/StudentPage.jsx 整合手動開始／結束、文字答案、自己的已提交、教師即時紀錄及已公布結果；回覆遺失先查後端，閉題無人顯示「無人作答」，所有答案以文字呈現。
+- [X] T042 [US3] 在 tests/records/us3.md 保存 T031–T033 實際結果及單題人工流程，確認 US3 不依賴 US4 即可開始、提交、教師即時查看、閉題與公布（含最後題 COMPLETED）；正常連線單題更新須符合 2 秒，側通道測試需有其他學生零事件／版本不變的證據，核對 FR-011–019、021–024、030；任何失敗修正重跑。
 
 **Checkpoint**: US1–US3 形成完整單題即時搶答增量（開始、有效提交、教師即時紀錄、閉題公布均須完成且 <=2 秒）；不能因此省略 US4、US5 或課程完整交付。
 
@@ -280,6 +280,6 @@ US1 準備 -> US2 身分 -> US3 單題搶答 -> US4 完整逐題同步 -> US5 �
 
 ## Notes
 
-目前 T001–T029 已完成，T030 待人工驗證，T031–T062 未執行；[P] 為未來執行建議。需求範圍未增加，後續依 Phase 順序執行。
+目前 T001–T042 已完成，Phase 5 驗收完成；依使用者指示只執行 Phase 5，T043–T062 未執行；[P] 為未來執行建議。需求範圍未增加，後續依 Phase 順序執行。
 套件精確版本由 T002 核對並鎖定，不假設未實測相容性。格式保留是強制義務，不是「檔案能開就算通過」。
 未解外部規範及人工審查不能透過勾選任務自動消失，須保存真實證據。

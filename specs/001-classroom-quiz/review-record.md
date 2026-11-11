@@ -29,6 +29,7 @@
 - Phase 1：T001–T005 完成，環境驗證 PASS，見 tests/records/phase1.md。
 - Phase 2：T006–T012 完成，自動測試及建置 PASS，見 tests/records/foundation.md。
 - Phase 3：T013–T023 完成，自動驗證 PASS；使用者於本對話確認 T023 人工測試 PASS，見 tests/records/us1.md。
-- Phase 4：T024–T029 完成，自動驗證 PASS；T030 人工重開 PENDING，見 tests/records/us2.md。
-- Phase 5–8：未開始；遵守前一階段驗證完成才進入下一階段。
+- Phase 4：T024–T030 完成，自動驗證 PASS；使用者於本對話確認 T030 人工驗收完成，見 tests/records/us2.md。
+- Phase 5：依最新授權執行；T031–T041 完成，自動驗證 PASS；T042 人工驗收已由使用者於本對話確認完成，Phase 5 完成，見 tests/records/us3.md。
+- Phase 6–8：未開始；依使用者指示停止，不執行下一階段。
 - 品質清單未修改；任務只按實際結果勾選，自動測試不能代替人工測試。

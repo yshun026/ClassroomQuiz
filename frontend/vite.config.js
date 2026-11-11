@@ -1,3 +1,4 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-export default defineConfig({plugins:[react()],server:{host:'localhost',port:5173,strictPort:true,proxy:{'/api':'http://localhost:3000','/socket.io':{target:'http://localhost:3000',ws:true}}}});
+const backend=process.env.E2E_BACKEND_URL||'http://localhost:3000';
+export default defineConfig({plugins:[react()],server:{host:'localhost',port:5173,strictPort:true,proxy:{'/api':backend,'/socket.io':{target:backend,ws:true}}}});
