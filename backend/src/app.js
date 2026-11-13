@@ -1,4 +1,5 @@
 import {QuestionService} from './services/question-service.js';
+import {registerGuidedNotes} from './api/guided-notes-routes.js';
 import {SubmissionService} from './services/submission-service.js';
 import {registerQuestions} from './api/question-routes.js';
 import {registerSubmissions} from './api/submission-routes.js';
@@ -19,5 +20,5 @@ export function createApp({config,store=createStore(),register}={}){
   const context={store,config,auth:new AuthorizationService(store,config.password),dispatcher:new CommandDispatcher(store)};app.locals.context=context;
   app.use((req,res,next)=>{if(req.headers.origin&&req.headers.origin!==config.origin)return next(new AppError('ORIGIN_FORBIDDEN'));next();});
   app.use(express.json());app.get('/api/health',(req,res)=>res.json({status:'ok'}));
-  context.activity=new ActivityService(store,context.dispatcher,new GuidedNotesService());context.sync=new SynchronizationService(store,context.auth,context.activity);context.questions=new QuestionService(context);context.submissions=new SubmissionService(context);registerQuestions(app,context);registerSubmissions(app,context);registerGroups(app,context);registerSessions(app,context);registerPreparation(app,context);registerActivity(app,context);if(register)register(app,context);app.use(errorHandler);return app;
+  context.activity=new ActivityService(store,context.dispatcher,new GuidedNotesService());context.sync=new SynchronizationService(store,context.auth,context.activity);context.questions=new QuestionService(context);context.submissions=new SubmissionService(context);registerQuestions(app,context);registerSubmissions(app,context);registerGroups(app,context);registerSessions(app,context);registerPreparation(app,context);registerGuidedNotes(app,context);registerActivity(app,context);if(register)register(app,context);app.use(errorHandler);return app;
 }

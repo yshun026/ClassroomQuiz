@@ -1,6 +1,6 @@
 import {AppError} from './errors.js';
 export function registerQuestions(app,c){
-  for(const operation of ['start','close'])app.post('/api/activity/questions/'+operation,(req,res)=>{
+  for(const operation of ['start','close','next'])app.post('/api/activity/questions/'+operation,(req,res)=>{
     const session=c.auth.fromRequest(req,'teacher');
     // The service revalidates Token and state in the shared synchronous command boundary.
     const token=req.headers.authorization.slice(7);

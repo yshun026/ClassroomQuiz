@@ -27,8 +27,8 @@ test('teacher-only commands, binding, stale question and malformed input reject 
  assert.equal((await api.post('/api/activity/submissions').set(t).send({...body,answerText:'teacher'})).status,403);
  c.store.activity.groups.get(1).studentSessionId='forged';assert.equal((await api.post('/api/activity/submissions').set(s).send({...body,answerText:'bad'})).status,403);
 });
-test('no answers and non-final results are irreversible; no Phase 6 next endpoint',async()=>{
- for(const count of [1,3]){const {app,teacher,students,body}=quizFixture(count),api=request(app),t=bearer(teacher);await api.post('/api/activity/questions/start').set(t).send(body);const closed=await api.post('/api/activity/questions/close').set(t).send(body);assert.equal(closed.body.phase,count===1?'COMPLETED':'RESULTS');const result=await api.get('/api/activity/questions/1/results').set(bearer(students[0]));assert.equal(result.body.noAnswers,true);assert.equal(result.body.winnerGroupNumber,null);assert.deepEqual(result.body.submissions,[]);assert.equal((await api.post('/api/activity/questions/start').set(t).send(body)).status,409);assert.equal((await api.post('/api/activity/questions/next').set(t).send(body)).status,404);}
+test('no answers and non-final results are irreversible; next is legal only for non-final RESULTS',async()=>{
+ for(const count of [1,3]){const {app,teacher,students,body}=quizFixture(count),api=request(app),t=bearer(teacher);await api.post('/api/activity/questions/start').set(t).send(body);const closed=await api.post('/api/activity/questions/close').set(t).send(body);assert.equal(closed.body.phase,count===1?'COMPLETED':'RESULTS');const result=await api.get('/api/activity/questions/1/results').set(bearer(students[0]));assert.equal(result.body.noAnswers,true);assert.equal(result.body.winnerGroupNumber,null);assert.deepEqual(result.body.submissions,[]);assert.equal((await api.post('/api/activity/questions/start').set(t).send(body)).status,409);assert.equal((await api.post('/api/activity/questions/next').set(t).send(body)).status,count===1?409:200);}
 });
 
 test('three HTTP clients submit concurrently with one rank each',async()=>{

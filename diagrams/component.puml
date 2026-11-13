@@ -38,7 +38,7 @@ note bottom of Store
 end note
 note bottom of Notes
  Export never changes activity state.
- .xlsx acceptability and placeholder permission:
- external confirmation pending (OI-001 / OI-002).
+ .xlsx acceptability: confirmation pending (OI-001).
+ Placeholder edits allowed by course PDF p.2 (OI-002).
 end note
 @enduml

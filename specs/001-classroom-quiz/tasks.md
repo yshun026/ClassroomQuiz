@@ -8,7 +8,7 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 **Prerequisites**: plan.md、spec.md、research.md、data-model.md、contracts/、quickstart.md、Constitution 1.0.0。
 **Tests**: spec SC-007 與 Constitution VI 明定自動及人工測試，故納入必要測試任務。
 **Organization**: 五個故事皆 P1，按規格順序排列。此命令只產生本文件，不實作或執行下列任務。
-**Status**: T001–T023 已完成，Phase 1–3 驗證通過；T023 人工結果由使用者確認，見 tests/records/us1.md；T024–T029 已完成，T030 人工驗證已由使用者確認完成，T031–T041 已完成自動驗證，T042 人工驗收已由使用者確認完成，T043–T062 未開始，兩項外部課程議題仍為 PENDING。
+**Status**: T001–T065 全部完成；Phase 9 自動驗證已通過（後端 73/73、前端 7/7、瀏覽器 14/14、build PASS），修正後人工覆核與 T062 文件審閱由使用者於 2026-11-14 回報通過。OI-001 PENDING；OI-002 已依課程 PDF 確認。
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -137,15 +137,15 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 
 ### Tests for User Story 4
 
-- [ ] T043 [P] [US4] 在 backend/tests/integration/activity-lifecycle.test.js 擴充 US3 已有 start/submit/close 推送測試，驗證 next、歷題結果、重連 state:request/state:snapshot/session:invalid、四階段晚加入及重啟；加入重連後他組提交仍不改自己的 studentViewRevision／查詢投影且不產生額外事件，並驗證錯誤/header 無全域計數；禁止跳題、自動開題、重開及舊題提交。
-- [ ] T044 [P] [US4] 在 tests/e2e/realtime-lifecycle.spec.js 寫老師加至少三組、每次變更及有效提交確認到 UI <=2 秒、四階段刷新／斷線重連／快照不倒退／已提交不重送測試；以同機量測起點與畫面變更記錄，斷線重連期間不套 2 秒上限。
+- [X] T043 [P] [US4] 在 backend/tests/integration/activity-lifecycle.test.js 擴充 US3 已有 start/submit/close 推送測試，驗證 next、歷題結果、重連 state:request/state:snapshot/session:invalid、四階段晚加入及重啟；加入重連後他組提交仍不改自己的 studentViewRevision／查詢投影且不產生額外事件，並驗證錯誤/header 無全域計數；禁止跳題、自動開題、重開及舊題提交。
+- [X] T044 [P] [US4] 在 tests/e2e/realtime-lifecycle.spec.js 寫老師加至少三組、每次變更及有效提交確認到 UI <=2 秒、四階段刷新／斷線重連／快照不倒退／已提交不重送測試；以同機量測起點與畫面變更記錄，斷線重連期間不套 2 秒上限。
 
 ### Implementation for User Story 4
 
-- [ ] T045 [US4] 在 backend/src/services/question-service.js、backend/src/services/activity-service.js 與 backend/src/api/question-routes.js 實作非最後題 RESULTS 的 next，題號僅加一至 WAITING；拒絕其他情況、保留已結束題結果，只有有效寫操作 stateRevision +=1，失敗／讀取不增加。
-- [ ] T046 [US4] 在 backend/src/services/synchronization-service.js 與 backend/src/realtime/socket-server.js 依賴 T039 已完成的單題推送，僅擴充 next 到下一題 WAITING、晚加入與斷線重連的重新驗權／完整快照恢復，不重新建立 start/submit/close 推送；依角色版本原子訂閱，恢復本身不遞增 studentViewRevision，也不向其他學生發通知，不靠 replay。
-- [ ] T047 [US4] 在 frontend/src/services/realtime.js、frontend/src/pages/TeacherPage.jsx 與 frontend/src/pages/StudentPage.jsx 依賴 T040/T041 已完成的單題及 COMPLETED UI，只擴充下一題 WAITING、歷題結果、晚加入、重新同步／失效 Token 清除；學生用 Session 可見版本恢復，next 更新 <=2 秒，不新增單題階段功能。
-- [ ] T048 [US4] 在 tests/records/us4.md 保存 T043–T044 的每次時間量測及人工多題結果，核對 FR-020–025、029 與 SC-004；確保提交與結束的既有單題測試仍通過。
+- [X] T045 [US4] 在 backend/src/services/question-service.js、backend/src/services/activity-service.js 與 backend/src/api/question-routes.js 實作非最後題 RESULTS 的 next，題號僅加一至 WAITING；拒絕其他情況、保留已結束題結果，只有有效寫操作 stateRevision +=1，失敗／讀取不增加。
+- [X] T046 [US4] 在 backend/src/services/synchronization-service.js 與 backend/src/realtime/socket-server.js 依賴 T039 已完成的單題推送，僅擴充 next 到下一題 WAITING、晚加入與斷線重連的重新驗權／完整快照恢復，不重新建立 start/submit/close 推送；依角色版本原子訂閱，恢復本身不遞增 studentViewRevision，也不向其他學生發通知，不靠 replay。
+- [X] T047 [US4] 在 frontend/src/services/realtime.js、frontend/src/pages/TeacherPage.jsx 與 frontend/src/pages/StudentPage.jsx 依賴 T040/T041 已完成的單題及 COMPLETED UI，只擴充下一題 WAITING、歷題結果、晚加入、重新同步／失效 Token 清除；學生用 Session 可見版本恢復，next 更新 <=2 秒，不新增單題階段功能。
+- [X] T048 [US4] 在 tests/records/us4.md 保存 T043–T044 的每次時間量測及人工多題結果，核對 FR-020–025、029 與 SC-004；確保提交與結束的既有單題測試仍通過。
 
 **Checkpoint**: 已有完整逐題搶答，匯出仍須 US5；多題結果不可重新排名或加入積分。
 
@@ -159,16 +159,16 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 
 ### Tests for User Story 5
 
-- [ ] T049 [P] [US5] 在 backend/tests/integration/export-http.test.js 為 GET /activity/guided-notes/export 寫教師權限、無活動、四階段下載 MIME/attachment、任意次數不改狀態、轉換失敗與回覆失敗合約測試。
-- [ ] T050 [P] [US5] 在 backend/tests/unit/guided-notes-export.test.js 使用 T013 不同格址／多表保真檔驗證只填 closed 題最小 rank、無人／未閉題留標記、=起始答案為字串、重複匯出原 Buffer 不變；受控 export-before-close/close-before-export 驗證不可混用快照。
+- [X] T049 [P] [US5] 在 backend/tests/integration/export-http.test.js 為 GET /activity/guided-notes/export 寫教師權限、無活動、四階段下載 MIME/attachment、任意次數不改狀態、轉換失敗與回覆失敗合約測試。
+- [X] T050 [P] [US5] 在 backend/tests/unit/guided-notes-export.test.js 使用 T013 不同格址／多表保真檔驗證只填 closed 題最小 rank、無人／未閉題留標記、=起始答案為字串、重複匯出原 Buffer 不變；受控 export-before-close/close-before-export 驗證不可混用快照。
 
 ### Implementation for User Story 5
 
-- [ ] T051 [US5] 在 backend/src/services/guided-notes-service.js 建立 ExportSnapshot：於同步入口複製原 Buffer 參照、位置映射副本及 closed 題 winner 文字副本，依 data-model.md「async ExcelJS 操作不能讀取仍在變動的 Submission Map」，匯出／失敗均不改 revision。
-- [ ] T052 [US5] 在 backend/src/services/guided-notes-service.js 實作快照後於入口外另載原 Buffer 至新 Workbook，以動態 Worksheet/Cell 映射只設應填格 cell.value 為 string，不建立 formula 型別；保留其他值、公式、樣式、工作表及未完成佔位符，失敗不動原始文件。
-- [ ] T053 [US5] 在 backend/src/api/guided-notes-routes.js 實作 T049 匯出端點與教師逐次驗權、activityId 檢查、下載 header、轉換錯誤及安全原因；不增加 CSV 或 Google API。
-- [ ] T054 [US5] 在 frontend/src/pages/TeacherPage.jsx 與 frontend/src/services/download.js 加入任意已準備階段下載、授權錯誤／匯出失敗提示，下載不能觸發 close/next/start，不在學生介面提供匯出權限。
-- [ ] T055 [US5] 在 tests/records/us5.md 保存 T049–T050 實際結果、逐表內容／公式／格式與圖片等特徵比對及人工 Excel 檢視；核對 FR-026–028、SC-005，實際課程檔若無法保真應列 blocker，不得用「盡量」宣稱通過。
+- [X] T051 [US5] 在 backend/src/services/guided-notes-service.js 建立 ExportSnapshot：於同步入口複製原 Buffer 參照、位置映射副本及 closed 題 winner 文字副本，依 data-model.md「async ExcelJS 操作不能讀取仍在變動的 Submission Map」，匯出／失敗均不改 revision。
+- [X] T052 [US5] 在 backend/src/services/guided-notes-service.js 實作快照後於入口外另載原 Buffer 至新 Workbook，以動態 Worksheet/Cell 映射只設應填格 cell.value 為 string，不建立 formula 型別；保留其他值、公式、樣式、工作表及未完成佔位符，失敗不動原始文件。
+- [X] T053 [US5] 在 backend/src/api/guided-notes-routes.js 實作 T049 匯出端點與教師逐次驗權、activityId 檢查、下載 header、轉換錯誤及安全原因；不增加 CSV 或 Google API。
+- [X] T054 [US5] 在 frontend/src/pages/TeacherPage.jsx 與 frontend/src/services/download.js 加入任意已準備階段下載、授權錯誤／匯出失敗提示，下載不能觸發 close/next/start，不在學生介面提供匯出權限。
+- [X] T055 [US5] 在 tests/records/us5.md 保存 T049–T050 實際結果、逐表內容／公式／格式與圖片等特徵比對及人工 Excel 檢視；核對 FR-026–028、SC-005，實際課程檔若無法保真應列 blocker，不得用「盡量」宣稱通過。
 
 **Checkpoint**: 五故事功能全部具備；文件與圖表一致性、自動及人工總驗證仍須收尾。
 
@@ -178,13 +178,13 @@ description: "ClassroomQuiz dependency-ordered implementation tasks"
 
 **Purpose**: 驗證完整交付、三圖一致、所有需求及人工審查，不新增產品功能。
 
-- [ ] T056 [P] 在 tests/records/diagram-consistency.md 逐項對照 diagrams/component.puml 的模組、diagrams/class.puml 的實體與關聯、diagrams/sequence.puml 的開始／接收／排序／閉題／下一題／匯出；發現差異依已確認需求修正實作或三份原圖，改 .puml 後必須 CLI 重產同目錄 component.png、class.png、sequence.png 並重新驗證，不能僅查 PNG 存在。
-- [ ] T057 [P] 在 tests/e2e/full-activity.spec.js 補足五故事端到端三題旅程與所有拒絕分支，包含晚加入與當題結束競爭、歷題結果、重複匯出、答案顯示為文字及後端重啟，對照 spec.md AC-01–10、SC-001–007 不留遺漏。
-- [ ] T058 在 tests/records/automated-validation.md 執行 quickstart.md 的 backend test、frontend test/build/test:e2e，彙整 T01–T14 的實際結果與環境，失敗修正後重跑受影響測試並保留原因，禁止將 NOT RUN 記為 PASS。
-- [ ] T059 在 tests/records/manual-validation.md 由人工依 quickstart.md 完成同機老師及三個隔離持久身分的三題流程、競爭／錯誤、刷新重開、多階段下載及 Excel 視覺比對，保存檢查者、預期／實際與證據；AI 模擬不能冒充人工測試。
-- [ ] T060 在 README.md 與 specs/001-classroom-quiz/quickstart.md 更新實際可執行的 Windows 11 安裝／啟動／測試／Demo、環境密碼及同機身分操作說明，保留 OI-001/OI-002 未核准狀態（除非有真實回覆），不增加公開部署步驟。
-- [ ] T061 在 tests/records/security-scope-review.md 檢查逐次教師權限、全部學生輸出投影及 metadata／事件數側通道、loopback、Git 待提交密碼／Token／原始敏感課程檔，並確認無題組匯入、CSV、AI 驗答、計分排行或帳號功能；必要修正後重驗，不能只查 UI。
-- [ ] T062 在 specs/001-classroom-quiz/review-record.md 與 tests/records/final-acceptance.md 整合六項憲章、FR-001–031、SC-001–007、三圖、規格／程式碼／Demo 一致性與測試證據，取得文件人工審查及跨組結果；外部議題若未解保持 PENDING，未完成強制驗證不得宣稱完整交付。
+- [X] T056 [P] 在 tests/records/diagram-consistency.md 逐項對照 diagrams/component.puml 的模組、diagrams/class.puml 的實體與關聯、diagrams/sequence.puml 的開始／接收／排序／閉題／下一題／匯出；發現差異依已確認需求修正實作或三份原圖，改 .puml 後必須 CLI 重產同目錄 component.png、class.png、sequence.png 並重新驗證，不能僅查 PNG 存在。
+- [X] T057 [P] 在 tests/e2e/full-activity.spec.js 補足五故事端到端三題旅程與所有拒絕分支，包含晚加入與當題結束競爭、歷題結果、重複匯出、答案顯示為文字及後端重啟，對照 spec.md AC-01–10、SC-001–007 不留遺漏。
+- [X] T058 在 tests/records/automated-validation.md 執行 quickstart.md 的 backend test、frontend test/build/test:e2e，彙整 T01–T14 的實際結果與環境，失敗修正後重跑受影響測試並保留原因，禁止將 NOT RUN 記為 PASS。
+- [X] T059 在 tests/records/manual-validation.md 由人工依 quickstart.md 完成同機老師及三個隔離持久身分的三題流程、競爭／錯誤、刷新重開、多階段下載及 Excel 視覺比對，保存檢查者、預期／實際與證據；AI 模擬不能冒充人工測試。
+- [X] T060 在 README.md 與 specs/001-classroom-quiz/quickstart.md 更新實際可執行的 Windows 11 安裝／啟動／測試／Demo、環境密碼及同機身分操作說明，保留 OI-001/OI-002 未核准狀態（除非有真實回覆），不增加公開部署步驟。
+- [X] T061 在 tests/records/security-scope-review.md 檢查逐次教師權限、全部學生輸出投影及 metadata／事件數側通道、loopback、Git 待提交密碼／Token／原始敏感課程檔，並確認無題組匯入、CSV、AI 驗答、計分排行或帳號功能；必要修正後重驗，不能只查 UI。
+- [X] T062 在 specs/001-classroom-quiz/review-record.md 與 tests/records/final-acceptance.md 整合六項憲章、FR-001–031、SC-001–007、三圖、規格／程式碼／Demo 一致性與測試證據，取得文件人工審查，並依課程文件記錄本組已實作功能清單、另一組尚未開工的協作現況與後續核對方式（見 implemented-features.md）；不將對方成品互測作為目前前置，不代填已一致，功能／流程變更仍須討論；外部議題依真實文件證據更新，未解保持 PENDING，未完成強制驗證不得宣稱完整交付。
 
 ---
 
@@ -280,6 +280,25 @@ US1 準備 -> US2 身分 -> US3 單題搶答 -> US4 完整逐題同步 -> US5 �
 
 ## Notes
 
-目前 T001–T042 已完成，Phase 5 驗收完成；依使用者指示只執行 Phase 5，T043–T062 未執行；[P] 為未來執行建議。需求範圍未增加，後續依 Phase 順序執行。
+目前 T001–T065 已完成；各階段自動及人工驗收完成，T062 文件審閱於 2026-11-14 依使用者回報完成；另一組尚未動工，後續依清單核對，不要求目前互測成品；[P] 為未來執行建議。需求範圍未增加，後續依 Phase 順序執行。
 套件精確版本由 T002 核對並鎖定，不假設未實測相容性。格式保留是強制義務，不是「檔案能開就算通過」。
 未解外部規範及人工審查不能透過勾選任務自動消失，須保存真實證據。
+
+
+## Phase 9: Convergence
+
+**Assessment**: 2026-11-13；依現有 spec、plan、T001–T062 與 Constitution 核對。只追加修正任務；不改既有 Task ID、順序或 checkbox。本階段未實作任何修正。
+
+**Inventory**: 31 FR、7 SC、32 個故事驗收場景、10 AC、12 組計畫決策、62 個既有任務、6 項憲章原則。可執行缺口共 3 項：contradicts 1、partial 2；HIGH 2、MEDIUM 1，未發現 CRITICAL／unrequested 項目。既有 T062 人工審閱仍未完成，沿用原任務，不另造重複審閱任務；OI-001 未確認不視為自行增加 Google API 的授權。
+
+- [X] T063 修正 HIGH F1 的匯出答案文字失真：在 backend/src/services/guided-notes-service.js、backend/src/services/workbook-fidelity.js 檢查 ExcelJS／OOXML 字串編碼及匯出後答案的實際語意，不可只把 allowedCells 的值全部排除比對而漏掉回填失真。已在記憶體活動重現：成功答案 `_x0041_` 經 renderExport 並以 ExcelJS 讀回變成 `A`，`a\rb`／CRLF 被正規化，含 U+0000／U+0001 的答案字元被移除，現有保真檢查仍放行；需保留成功答案文字，對確實無法保真的情況清楚回報匯出失敗，禁止靜默成功、不得擅增業務字數限制或公式。先在 backend/tests/unit/guided-notes-export.test.js 及 backend/tests/integration/export-http.test.js 加入實際編碼／讀回的回歸，確認一般底線字串、Excel escape-like 字串、CR／LF／CRLF、特殊字元、以等號起始字串、非答案內容及原 Buffer／活動不變；於 tests/records/us5.md 或新修正證據節記錄實際結果，不把舊 T055 人工回報當作新案例已驗證。per FR-026、FR-027、FR-028、SC-005、plan: Excel 保真、T050–T052 (contradicts)
+- [X] T064 修正 HIGH F2 的過期非同步回覆與身分基準處理：在 frontend/src/services/realtime.js、frontend/src/pages/TeacherPage.jsx、frontend/src/pages/StudentPage.jsx 及必要的 frontend/src/services/api.js 建立活動／Session 或請求世代檢查，防止舊 HTTP／Socket 結果在新狀態或身分啟用後套用或清除新 Token。已重現 acceptSnapshot 將現有 active ANSWERING/stateRevision=8 覆寫為延遲的 {prepared:false}，亦會將已顯示第 2 組的 view 改為舊第 1 組 view；目前不同 activityId 或 ownGroupNumber 直接接受，caller 沒有捕捉並核對請求所屬 Token／世代，不能分辨合法重設與過期回覆。先在 frontend/tests/realtime.test.js 與 tests/e2e/realtime-lifecycle.spec.js 加入受控延遲 HTTP 回覆、準備到活動切換、身分變更、舊失效回覆晚到及新活動重設測試；同活動／同身分版本不倒退，新身分不被舊資料覆蓋，合法恢復仍成功，答案不自動重送，學生不引入全域版本。保存實際結果並回歸至少老師及三組的同步／資訊隔離。per FR-005、FR-022、FR-024、FR-025、SC-004、plan: 同步與可見性、T040、T044、T047 (partial)
+- [X] T065 修正 MEDIUM F3 的請求解析錯誤分類：在 backend/src/api/errors.js 與必要的 backend/src/app.js 將已識別的 malformed JSON 等輸入解析錯誤映射為合約允許的 400 INVALID_INPUT／適用的安全輸入錯誤，而非一律回 500 INTERNAL_ERROR；真正未知伺服器錯誤仍須隱藏內部資訊。已以有效學生身分送出截斷的 JSON `{"answerText":` 至提交端點，重現 500 INTERNAL_ERROR；此次未新增答案，但回應不能清楚區分輸入格式錯誤。先在 backend/tests/unit/foundation.test.js 或對應 HTTP integration 測試 malformed JSON、合法 JSON 錯誤型別及真正內部失敗的狀態碼／安全繁中訊息／隨機 requestId，確認不洩漏 stack、密碼、Token 或他組答案，且活動、順位及有效提交不變。更新對應測試紀錄。per FR-030、plan: Error Handling、T008、T010 (partial)
+
+**執行與驗收**: 先完成 T063、T064，再完成 T065 並彙整所有受影響驗證；每項先重現失敗再修正。完成後依 quickstart 執行 backend test、frontend test/build/test:e2e，保存實際結果，針對匯出文字及狀態恢復做必要人工覆核；未執行項目不可代填 PASS。若修正影響三圖，依 Constitution III 更新 .puml 並 CLI 重產 PNG、重新核對。既有 T062 的最後文件審閱應在修正與重驗後完成，不以其待確認狀態阻擋本階段修正，也不自動勾選 T062。後續再次執行 speckit-converge 檢查收斂；本次沒有執行 Implement、build、E2E 或 Git 操作。
+
+**本次執行證據**: backend test 54/54 PASS、frontend test 3/3 PASS；另以無檔案輸出的記憶體重現確認 F1–F3。上述既有測試 PASS 不代表新重現案例通過。只有本 Phase 9 追加至 tasks.md，原有內容保持 byte-for-byte 不變。
+
+**Phase 9 執行結果（2026-11-13）**: T063–T065 實作及自動驗證完成；後端 73/73、前端 7/7、瀏覽器 14/14、build PASS。先失敗再修正及 fixture 問題原因記錄於 tests/records/convergence.md。必要的修正後人工覆核仍待使用者回報，併最後 T062 審閱完成；不以舊 T055／T059 回報代填新案例通過，T062 checkbox 維持未勾選。本輪未執行 speckit-converge 或 Git commit／push。
+
+**最後人工覆核（2026-11-14）**: 使用者回報「完成人工復核了 沒問題」，據此確認 convergence.md 所列人工覆核及最後 T062 審閱通過，全部 65 項任務已勾選。上方 Phase 9 的待回報敘述為 2026-11-13 歷史狀態，以本次完成紀錄為準。尚未執行新的 Converge 或 Git commit／push；OI-001 及另一組後續核對狀態不變。

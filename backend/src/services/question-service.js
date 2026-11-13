@@ -29,5 +29,15 @@ export class QuestionService {
       return this.state(a);
     });
   }
+  next(token, body) {
+    return this.c.dispatcher.run(() => {
+      this.c.auth.validate(token, 'teacher');
+      const {activity:a, question:q} = this.current(body);
+      if (a.phase !== 'RESULTS' || !q.closed || a.currentQuestionNumber >= a.questions.size) throw new AppError('PHASE_CONFLICT');
+      a.currentQuestionNumber++; a.phase = 'WAITING'; a.stateRevision++;
+      this.c.sync.changed();
+      return this.state(a);
+    });
+  }
   state(a) { return {activityId:a.id,stateRevision:a.stateRevision,phase:a.phase,currentQuestionNumber:a.currentQuestionNumber}; }
 }
