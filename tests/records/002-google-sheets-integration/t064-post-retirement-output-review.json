@@ -1,0 +1,12 @@
+{
+  "reviewDate": "2026-11-19",
+  "requestedDirectory": "output/",
+  "actualDirectory": "outputs/",
+  "removed": "outputs/classroomquiz-valid-notes/ClassroomQuiz_valid.xlsx.inspect.ndjson",
+  "reason": "Derived inspection/debug output; no product/test/original historical document reference found; original XLSX retained",
+  "sha256": "b9d04981b5793c6ba85ac98e2a657745bf3116f2cbfe1bf97c064c3d56fddb04",
+  "backupVerified": true,
+  "dataReadPolicy": "Only inspection schema examined; no cell values output",
+  "retained": "outputs/classroomquiz-valid-notes/ClassroomQuiz_valid.xlsx",
+  "historicalReference": "tests/records/us1.md:30"
+}

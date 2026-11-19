@@ -1,8 +1,7 @@
-import multer from 'multer';
 import {AppError} from './errors.js';
-const upload=multer({storage:multer.memoryStorage()});
+const exactBody=(req,key)=>{if(!req.is('application/json')||!req.body||Array.isArray(req.body)||Object.keys(req.body).length!==1||!Object.hasOwn(req.body,key))throw new AppError('INVALID_INPUT');};
 export function registerPreparation(app,c){
  const teacher=(req,res,next)=>{try{c.auth.fromRequest(req,'teacher');next();}catch(e){next(e);}};
- app.put('/api/preparation/groups',teacher,(req,res)=>{const committed=c.activity.setGroups(req.body?.groupCount);c.sync.changed();res.status(committed?201:200).json(c.activity.teacherView());});
- app.post('/api/preparation/guided-notes',teacher,upload.single('file'),async(req,res)=>{if(!req.file)throw new AppError('FILE_UNREADABLE');const committed=await c.activity.import(req.file.buffer,req.file.originalname);c.sync.changed();res.status(committed?201:200).json(c.activity.teacherView());});
+ app.put('/api/preparation/groups',teacher,(req,res)=>{exactBody(req,'groupCount');c.activity.setGroups(req.body.groupCount);c.sync.changed();res.status(200).json(c.activity.teacherView());});
+ app.post('/api/preparation/guided-notes',teacher,async(req,res)=>{exactBody(req,'spreadsheetUrl');await c.activity.loadSource(req.body.spreadsheetUrl,()=>c.auth.fromRequest(req,'teacher'));c.sync.changed();res.status(201).json(c.activity.teacherView());});
 }

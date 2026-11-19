@@ -1,0 +1,123 @@
+✖ reconcile authenticates each request and uses only existing eligible activity operation (61.0623ms)
+✖ two teacher sessions cannot reconcile or write concurrently; GET remains local (10.5485ms)
+✖ lost write POST response keeps worker; apply plus failed verify recovers without resending (12.5078ms)
+✖ in-flight matching readback remains busy until settle; settled unknown markers stay read-only (5.4028ms)
+✔ evidence makes repeated writes no-ops, but external replacement or restored markers conflict (17.5043ms)
+✖ unknown partial results preserve snapshot/barrier; later exact content can reconcile without another write (6.1182ms)
+✖ pending rechecks prior evidence, all locations, structure and non-answer formula before any resend (2.9739ms)
+✖ reconcile read/auth/permission failure preserves uncertainty and never becomes safely failed (1.694ms)
+✖ safe settled applied attempt can write only remaining markers on explicit reconcile (2.1576ms)
+✔ exact marker answer is evidence-backed and malformed/oversize winners fail without a write (18.5702ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 2
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2030.5997
+
+✖ failing tests:
+
+test at backend\tests\integration\writeback-recovery-http.test.js:10:1
+✖ reconcile authenticates each request and uses only existing eligible activity operation (61.0623ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  404 !== 401
+
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/integration/writeback-recovery-http.test.js:12:9)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 401,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend\tests\integration\writeback-recovery-http.test.js:20:1
+✖ two teacher sessions cannot reconcile or write concurrently; GET remains local (10.5485ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  404 !== 202
+
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/integration/writeback-recovery-http.test.js:22:78)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 202,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend\tests\integration\writeback-recovery-http.test.js:27:1
+✖ lost write POST response keeps worker; apply plus failed verify recovers without resending (12.5078ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  404 !== 202
+
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/integration/writeback-recovery-http.test.js:32:160)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 404,
+    expected: 202,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at backend\tests\integration\writeback-recovery-http.test.js:36:1
+✖ in-flight matching readback remains busy until settle; settled unknown markers stay read-only (5.4028ms)
+  TypeError: Cannot read properties of undefined (reading 'code')
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/integration/writeback-recovery-http.test.js:40:155)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at backend\tests\unit\writeback-recovery.test.js:19:1
+✖ unknown partial results preserve snapshot/barrier; later exact content can reconcile without another write (6.1182ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert(op.canReconcile)
+
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:22:143)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at backend\tests\unit\writeback-recovery.test.js:28:1
+✖ pending rechecks prior evidence, all locations, structure and non-answer formula before any resend (2.9739ms)
+  TypeError: f.c.writeback.reconcile is not a function
+      at reconcile (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:8:46)
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:32:105)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at backend\tests\unit\writeback-recovery.test.js:36:1
+✖ reconcile read/auth/permission failure preserves uncertainty and never becomes safely failed (1.694ms)
+  TypeError: f.c.writeback.reconcile is not a function
+      at reconcile (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:8:46)
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:40:23)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at backend\tests\unit\writeback-recovery.test.js:44:1
+✖ safe settled applied attempt can write only remaining markers on explicit reconcile (2.1576ms)
+  TypeError: f.c.writeback.reconcile is not a function
+      at reconcile (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:8:46)
+      at TestContext.<anonymous> (file:///C:/NCU/CSIE/software-engineering/ClassroomQuiz/backend/tests/unit/writeback-recovery.test.js:48:93)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)

@@ -1,0 +1,14 @@
+
+> classroomquiz-frontend@1.0.0 build
+> vite build
+
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 51 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.35 kB │ gzip:  0.26 kB
+dist/assets/index-B-HaC268.css    1.55 kB │ gzip:  0.71 kB
+dist/assets/index-Bjs2am5W.js   275.65 kB │ gzip: 86.06 kB
+
+✓ built in 325ms

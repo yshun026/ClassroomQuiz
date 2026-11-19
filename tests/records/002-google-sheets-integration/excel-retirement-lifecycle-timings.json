@@ -1,0 +1,52 @@
+[
+  {
+    "question": 1,
+    "phase": "ANSWERING",
+    "ms": 16
+  },
+  {
+    "question": 1,
+    "submission": 1,
+    "ms": 9
+  },
+  {
+    "question": 1,
+    "phase": "RESULTS",
+    "ms": 16
+  },
+  {
+    "question": 2,
+    "phase": "WAITING",
+    "ms": 18
+  },
+  {
+    "question": 2,
+    "phase": "ANSWERING",
+    "ms": 13
+  },
+  {
+    "question": 2,
+    "phase": "RESULTS",
+    "ms": 16
+  },
+  {
+    "question": 3,
+    "phase": "WAITING",
+    "ms": 19
+  },
+  {
+    "question": 3,
+    "phase": "ANSWERING",
+    "ms": 15
+  },
+  {
+    "question": 3,
+    "submission": 3,
+    "ms": 12
+  },
+  {
+    "question": 3,
+    "phase": "COMPLETED",
+    "ms": 26
+  }
+]

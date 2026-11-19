@@ -1,0 +1,47 @@
+
+> classroomquiz-frontend@1.0.0 test
+> node --test tests/*.test.js
+
+✔ source import sends only JSON URL and teacher Notes uses bound activity (2.1592ms)
+✔ old activity Notes and reset/import late replies cannot replace current source (0.516ms)
+✔ different operations never compare revisions; A late GET and older Notes cannot replace B (0.359ms)
+✔ same-operation out-of-order replies retain current revision, and Session/reset invalidates requests (0.2262ms)
+✔ lost POST response discovers existing operation without replay; busy/pending recovery is read-only (0.3177ms)
+✔ a late POST response cannot replace a newer operation selected after reset (0.2062ms)
+✔ explicit reconcile keeps original ID, bumps epoch and never automatically repeats POST (0.2826ms)
+✔ lost reconcile reply discovers same operation; Google failure view never clears local identity (0.2043ms)
+node:internal/modules/esm/resolve:201
+  const resolvedOption = FSLegacyMainResolve(pkgPath, packageConfig.main, baseStringified);
+                         ^
+
+Error: Cannot find package 'C:\NCU\CSIE\software-engineering\ClassroomQuiz\frontend\node_modules\socket.io-client\index.js' imported from C:\NCU\CSIE\software-engineering\ClassroomQuiz\frontend\src\services\realtime.js
+    at legacyMainResolve (node:internal/modules/esm/resolve:201:26)
+    at packageResolve (node:internal/modules/esm/resolve:778:12)
+    at moduleResolve (node:internal/modules/esm/resolve:859:18)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:691:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:708:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:740:52)
+    at #resolve (node:internal/modules/esm/loader:673:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:593:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.17.0
+✖ tests\realtime.test.js (104.8112ms)
+✔ test identities use distinct profiles (4.2006ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.8627
+
+✖ failing tests:
+
+test at tests\realtime.test.js:1:1
+✖ tests\realtime.test.js (104.8112ms)
+  'test failed'

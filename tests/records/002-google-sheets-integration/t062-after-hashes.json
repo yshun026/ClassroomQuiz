@@ -1,0 +1,89 @@
+{
+  "sha256": {
+    "diagrams\\002-component.puml": "7927a2fdac00254f699311b27e6e4061d93a7a6faab3bb5d3461a26a063efd8d",
+    "diagrams\\002-component.png": "310493ed5357314b017fecf2dfd43b4778bef0a859016f775db3138019a4d774",
+    "diagrams\\002-class.puml": "a2ccb5610d844cc44d75a6151d5fa813252a060e8de08cc622c2f77f45a159f5",
+    "diagrams\\002-class.png": "a59aab48f4f8e10e5c1a4679a480efb2a587a881ff716081582a4c0d679ad062",
+    "diagrams\\002-sequence.puml": "8f50394af3d2a936773d0291745191d571359edcc6815df0b6c578175b605e06",
+    "diagrams\\002-sequence.png": "1d046d3f76461e3c72c7da19093729b3e2bd98483bb95bddbdad5bf3187f2c96"
+  },
+  "pngDimensions": {
+    "diagrams\\002-component.png": [
+      1977,
+      1421
+    ],
+    "diagrams\\002-class.png": [
+      2541,
+      936
+    ],
+    "diagrams\\002-sequence.png": [
+      2315,
+      4021
+    ]
+  },
+  "finalWhitespaceReview": {
+    "date": "2026-11-19",
+    "sha256": {
+      "diagrams\\002-component.puml": "6b898de7250ba58fc9e6e95215731ce4d4b35b9a36677b4dfaef67854aa6e095",
+      "diagrams\\002-component.png": "310493ed5357314b017fecf2dfd43b4778bef0a859016f775db3138019a4d774",
+      "diagrams\\002-class.puml": "21161c0d1373ba8d95bc1c59634e59e89e46086a9f06651c43a88959c33d4b67",
+      "diagrams\\002-class.png": "a59aab48f4f8e10e5c1a4679a480efb2a587a881ff716081582a4c0d679ad062",
+      "diagrams\\002-sequence.puml": "ec51b5cc8379b63abac9665db552d47bbf6b3b783cc4828a2fd26a7cf026aeee",
+      "diagrams\\002-sequence.png": "1d046d3f76461e3c72c7da19093729b3e2bd98483bb95bddbdad5bf3187f2c96"
+    },
+    "syntaxExit": 0,
+    "renderExit": 0,
+    "allThreePixelBuffersIdentical": true,
+    "previousSha256IsHistorical": true,
+    "whitespaceChanges": [
+      {
+        "file": "diagrams/002-component.puml",
+        "before": "7927a2fdac00254f699311b27e6e4061d93a7a6faab3bb5d3461a26a063efd8d",
+        "after": "6b898de7250ba58fc9e6e95215731ce4d4b35b9a36677b4dfaef67854aa6e095",
+        "changedWhitespaceLines": 1,
+        "beforeCRLF": 2,
+        "afterCRLF": 1
+      },
+      {
+        "file": "diagrams/002-class.puml",
+        "before": "a2ccb5610d844cc44d75a6151d5fa813252a060e8de08cc622c2f77f45a159f5",
+        "after": "21161c0d1373ba8d95bc1c59634e59e89e46086a9f06651c43a88959c33d4b67",
+        "changedWhitespaceLines": 1,
+        "beforeCRLF": 2,
+        "afterCRLF": 1
+      },
+      {
+        "file": "diagrams/002-sequence.puml",
+        "before": "8f50394af3d2a936773d0291745191d571359edcc6815df0b6c578175b605e06",
+        "after": "ec51b5cc8379b63abac9665db552d47bbf6b3b783cc4828a2fd26a7cf026aeee",
+        "changedWhitespaceLines": 1,
+        "beforeCRLF": 159,
+        "afterCRLF": 157
+      },
+      {
+        "file": "specs/002-google-sheets-integration/checklists/requirements.md",
+        "before": "37db97841688625ce59315c043ed5a50d3f14926892f481553116551f189ff16",
+        "after": "eddcd2ad489e08458e0ea27abf637a959ddafb0d7279c57b29f709176e35e774",
+        "changedWhitespaceLines": 1,
+        "beforeCRLF": 1,
+        "afterCRLF": 1
+      },
+      {
+        "file": "specs/002-google-sheets-integration/spec.md",
+        "before": "d3ffed191e1a0d0bb2b99c74f0d7e38fd81e64fe52d1656d9bce695ed62d287c",
+        "after": "bedceac76f0ed5df404296cb5d938f7cd38bb4977047a2b03620d280d2ae0fe6",
+        "changedWhitespaceLines": 1,
+        "beforeCRLF": 224,
+        "afterCRLF": 222
+      },
+      {
+        "file": "tests/records/002-google-sheets-integration/us4-red.txt",
+        "before": "e3f0b6e1c816a102a6da8685bb30ee9e48e68365e3ebb88b16dc6b54c0539bb7",
+        "after": "9df8cdfd8a7ca1be4c7e493e13b1bc0b41cce021a4abc8c137c54f63e4d6d71e",
+        "changedWhitespaceLines": 8,
+        "beforeCRLF": 123,
+        "afterCRLF": 123
+      }
+    ]
+  }
+}

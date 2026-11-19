@@ -5,8 +5,8 @@ import {io as client} from 'socket.io-client';
 import request from 'supertest';
 import {setTimeout as delay} from 'node:timers/promises';
 import {attachRealtime} from '../../src/realtime/socket-server.js';
-import {quizFixture,bearer} from '../helpers/quiz.js';
-async function socketSetup(){const f=quizFixture();const server=createServer(f.app);const io=attachRealtime(server,f.c);await new Promise(r=>server.listen(0,'localhost',r));const url=`http://localhost:${server.address().port}`;const sockets=[];
+import {preparedQuizFixture as quizFixture,bearer} from '../helpers/quiz.js';
+async function socketSetup(){const f=await quizFixture();const server=createServer(f.app);const io=attachRealtime(server,f.c);await new Promise(r=>server.listen(0,'localhost',r));const url=`http://localhost:${server.address().port}`;const sockets=[];
  async function connect(token,extra={}){const socket=client(url,{auth:{token,...extra},extraHeaders:{Origin:'http://localhost:5173'},transports:['websocket'],reconnection:false,autoConnect:false});sockets.push(socket);const views=[];socket.on('state:snapshot',v=>views.push(v));await new Promise((resolve,reject)=>{socket.once('state:snapshot',resolve);socket.once('connect_error',reject);socket.connect();});return {socket,views};}
  return {...f,connect,url,cleanup:async()=>{sockets.forEach(s=>s.disconnect());await new Promise(r=>io.close(r));if(server.listening)await new Promise(r=>server.close(r));}};
 }

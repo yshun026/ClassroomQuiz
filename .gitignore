@@ -16,3 +16,8 @@ test-results/
 playwright-report/
 profiles/
 uploads/
+# Defense in depth only: actual Service Account credentials MUST be outside the repo.
+credentials/
+service-account*.json
+*.pem
+*.key

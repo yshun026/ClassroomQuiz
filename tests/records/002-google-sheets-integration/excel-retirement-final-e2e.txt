@@ -1,0 +1,36 @@
+
+> classroomquiz-frontend@1.0.0 test:e2e
+> playwright test --config ../tests/e2e/playwright.config.js
+
+[WebServer] (node:3484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 21 tests using 1 worker
+
+(node:25956) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 ..\tests\e2e\convergence-regressions.spec.js:3:1 › literal browser answer is written as an exact Sheets string without a formal Excel UI (2.6s)
+  ok  2 ..\tests\e2e\full-activity.spec.js:4:1 › Sheets-prepared quiz: login, three groups, late join, close, results, Sheets fidelity and reset (6.9s)
+  ok  3 ..\tests\e2e\google-sheets-recovery.spec.js:7:1 › two teacher pages share busy/pending ID; unknown marker reconciles read-only, matching content then succeeds (8.5s)
+  ok  4 ..\tests\e2e\google-sheets-recovery.spec.js:23:1 › Google authorization failure retains teacher session and refresh never sends a write (1.9s)
+  ok  5 ..\tests\e2e\google-sheets-recovery.spec.js:31:39 › late A success and old Notes cannot replace discovered B or alter controls (3.3s)
+  ok  6 ..\tests\e2e\google-sheets-recovery.spec.js:31:39 › late A error and old Notes cannot replace discovered B or alter controls (3.2s)
+  ok  7 ..\tests\e2e\google-sheets-writeback.spec.js:4:1 › manual writeback selects closed first-rank answer; worker does not block next question or leak progress (3.2s)
+  ok  8 ..\tests\e2e\google-sheets-writeback.spec.js:31:1 › HTTP success with failed readback stays pending and reload only reads local operation (2.3s)
+  ok  9 ..\tests\e2e\guided-notes-export.spec.js:3:1 › retired XLSX endpoint preserves authorization and activity in all four phases (1.3s)
+  ok 10 ..\tests\e2e\realtime-lifecycle.spec.js:7:1 › teacher ignores delayed preparation after a newer ANSWERING snapshot (373ms)
+  ok 11 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old success response after identity changes (301ms)
+  ok 12 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old invalid response after identity changes (328ms)
+  ok 13 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old new-activity response after identity changes (311ms)
+  ok 14 ..\tests\e2e\realtime-lifecycle.spec.js:29:1 › three-question lifecycle: measured updates, four-phase refresh, offline restore and no answer replay (2.5s)
+  ok 15 ..\tests\e2e\realtime-lifecycle.spec.js:51:1 › backend identity loss clears student state and requires new teacher login (644ms)
+  ok 16 ..\tests\e2e\realtime-lifecycle.spec.js:55:1 › teacher and student reconnect in every phase; a lost submission reply never replays the answer (8.9s)
+  ok 17 ..\tests\e2e\realtime-lifecycle.spec.js:75:1 › Google Access outage does not block an already loaded three-group quiz (fake cloud) (1.5s)
+  ok 18 ..\tests\e2e\single-question.spec.js:13:1 › single question: manual start, private submissions, teacher live ranks and final publication within two seconds (980ms)
+  ok 19 ..\tests\e2e\single-question.spec.js:29:1 › teacher can close an unanswered non-final question and publish no answers (515ms)
+  ok 20 ..\tests\e2e\student-identity.spec.js:10:1 › separate persistent browser identities claim and recover without takeover (6.3s)
+  ok 21 ..\tests\e2e\teacher-preparation.spec.js:3:1 › teacher imports Google Sheets URL with safe retry and source recovery (fake API) (831ms)
+
+  21 passed (1.1m)

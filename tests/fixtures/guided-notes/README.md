@@ -1,7 +1,9 @@
-# Guided Notes fixtures
+# Historical Guided Notes XLSX fixtures
 
-Run node tests/fixtures/guided-notes/generate-fixtures.js. Synthetic data only.
-valid-a/valid-b: same Q1–Q3 at different sheet/cell locations. fidelity: styles, formula, merges, image, dimensions. merged: merged answer master scanned once.
-Invalid: gap, duplicate, zero, leading, lowercase, broken, space, mixed, formula, empty, corrupt. See unit test for expected error code.
+Static synthetic inputs retained for Feature 001 history and existing acceptance references. The active ClassroomQuiz application and current tests use Google Sheets; these files are not supported import inputs.
 
-single-question: 只有 Q1（B3）；直接建立單題 Workbook，避免刪除 Q2/Q3 後留下過期 dimension。Phase 9 新增實際匯入回歸。
+The former ExcelJS generator and executable XLSX tests were retired by the separately authorized maintenance work before T064 acceptance. Original results are preserved in specs/001-classroom-quiz and tests/records; no historical PASS was rewritten.
+
+valid-a/valid-b: historical three-question dynamic mapping; fidelity: historical styles/formula/merge/image/dimensions; merged: merged master. Invalid historical inputs: gap, duplicate, zero, leading, lowercase, broken, space, mixed, formula, empty, corrupt. single-question retains the original one-question sample.
+
+Do not run these historical samples through the current application or restore Excel dependencies to regenerate them. Current synthetic source fixtures: ../google-sheets/sources.js.
