@@ -58,12 +58,12 @@ npm --prefix backend run dev
 
 | 老師端／內部狀態 | 安全處理 |
 | --- | --- |
-| 寫回未完成／FAILED | 可能在讀取前驗、認證或寫入遭拒階段失敗，不歸因特定Google原因。先「重新取得寫回狀態」，確認running=false、canReconcile=false及無其他未解操作後，修權再明確發起新寫回；保留同一活動 |
+| 寫回未完成／FAILED | 可能在讀取前驗、認證或寫入遭拒階段失敗，不歸因特定Google原因。先重新整理頁面確認最新狀態；若查詢失敗則按「重新查詢」。確認running=false、canReconcile=false及無其他未解操作後，修權再明確發起新寫回；保留同一活動 |
 | 來源衝突／CONFLICT | 停止尚未送更新，不強制覆蓋外部值。先查是否帶未解操作；canReconcile=true時只處理原操作，不能直接新寫。不要把已成功答案擅自還原成marker |
 | 結果待核對／PENDING_VERIFICATION | 保留後端程序、原operation／Snapshot／Evidence，不重送、不重啟。canReconcile=true才可手動「核對原寫回操作」；這會讀Google，安全條件成立時也可能續寫，不是純本機查詢，也不保證能恢復 |
 | 正在處理／running=true | 等原操作，不並行點寫回，不重啟企圖取消 |
 
-「重新取得寫回狀態」及自動狀態輪詢只讀本機記憶體，不呼叫Google或reconcile；必要時在瀏覽器Network的本機GET只看status／running／canReconcile，不分享完整回應／Token。Google錯誤不等於老師Session失效。一般錯誤無法區分不存在與無權，UNKNOWN不當DENIED；頁面標記未變不證明舊寫已取消。權限、標記、埠占用等錯誤處置見[Quickstart第10節](specs/002-google-sheets-integration/quickstart.md#10-常見錯誤排除)。
+「重新查詢」（僅在狀態查詢失敗時顯示）及自動狀態輪詢只讀本機記憶體，不呼叫Google或reconcile；必要時在瀏覽器Network的本機GET只看status／running／canReconcile，不分享完整回應／Token。Google錯誤不等於老師Session失效。一般錯誤無法區分不存在與無權，UNKNOWN不當DENIED；頁面標記未變不證明舊寫已取消。權限、標記、埠占用等錯誤處置見[Quickstart第10節](specs/002-google-sheets-integration/quickstart.md#10-常見錯誤排除)。
 
 ## 開發者：離線測試
 

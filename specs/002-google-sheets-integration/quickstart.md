@@ -115,7 +115,7 @@ npm --prefix frontend run dev
 | PENDING_VERIFICATION／結果待核對 | 原Snapshot／Evidence／operation必須保留；查詢不會重送。只有按「核對原寫回操作」才啟動原操作恢復；它不是純只讀保證，安全條件滿足時可能續寫剩餘格 |
 | running=true | 不重啟、不並行寫，等待原操作或保留待核對 |
 
-「重新取得寫回狀態」的GET僅讀本機記憶體，不呼叫Google或reconcile。老師畫面獨立狀態標題可區分FAILED與PENDING，下面一般錯誤訊息不代表精確Google原因。若需確認，在瀏覽器Network查看本機GET `/api/activity/guided-notes?activityId=…` 的latestWriteback，只回報status／running／canReconcile；勿匯出HAR／完整回應／Token。舊UNKNOWN且仍有未完成marker可永久pending；本機settle／200秒不是遠端取消證據。
+「重新查詢」（僅在狀態查詢失敗時顯示）的GET僅讀本機記憶體，不呼叫Google或reconcile。老師畫面獨立狀態標題可區分FAILED與PENDING，下面一般錯誤訊息不代表精確Google原因。若需確認，在瀏覽器Network查看本機GET `/api/activity/guided-notes?activityId=…` 的latestWriteback，只回報status／running／canReconcile；勿匯出HAR／完整回應／Token。舊UNKNOWN且仍有未完成marker可永久pending；本機settle／200秒不是遠端取消證據。
 
 ## 8. 換另一份表與範本重用
 

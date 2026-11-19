@@ -35,7 +35,7 @@ test('HTTP success with failed readback stays pending and reload only reads loca
   f.c.sheetsAccess.verify=async()=>{throw Error('private Google failure');};
   await teacher.getByRole('button',{name:'寫回 Google Sheets',exact:true}).click();await expect(teacher.getByTestId('writeback-status')).toHaveText('結果待核對');
   await expect(teacher.getByRole('button',{name:'寫回 Google Sheets',exact:true})).toBeDisabled();await teacher.reload();await expect(teacher.getByTestId('writeback-status')).toHaveText('結果待核對');
-  await teacher.getByRole('button',{name:'重新取得寫回狀態',exact:true}).click();expect(f.c.sheetsAccess.calls.filter(c=>c.method==='writeValues')).toHaveLength(1);
+  await expect(teacher.getByRole('button',{name:'重新查詢',exact:true})).toHaveCount(0);expect(f.c.sheetsAccess.calls.filter(c=>c.method==='writeValues')).toHaveLength(1);
   await expect(teacher.getByText('private Google failure')).toHaveCount(0);await expect(student.getByTestId('writeback-status')).toHaveCount(0);
  }finally{await f.cleanup();}
 });

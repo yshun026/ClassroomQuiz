@@ -28,33 +28,52 @@ test('Google authorization failure retains teacher session and refresh never sen
  }finally{await f.cleanup();}
 });
 
-for(const late of ['success','error'])test(`late A ${late} and old Notes cannot replace discovered B or alter controls`,async({browser})=>{
+for(const late of ['success','error'])test(`late A ${late} cannot replace discovered B or alter controls`,async({browser})=>{
  const f=await scenario(browser,1);let releaseWrite,releaseViews;try{
   await closed(f);const teacher=await f.pageFor(f.teacher,'teacher'),other=await f.pageFor(f.c.auth.issue('teacher').token,'teacher');
   const writeGate=new Promise(r=>{releaseWrite=r;}),viewGate=new Promise(r=>{releaseViews=r;});const original=f.c.sheetsAccess.writeValues.bind(f.c.sheetsAccess);f.c.sheetsAccess.writeValues=async(...a)=>{await writeGate;return original(...a);};
-  let operationEntered,notesEntered;const entered=new Promise(r=>{operationEntered=r;}),notesReady=new Promise(r=>{notesEntered=r;});
-  const deliveries=[];
+  let operationEntered;const entered=new Promise(r=>{operationEntered=r;});
+  const deliveries=[];let pollCalls=0;
   await teacher.route('**/api/activity/guided-notes/writebacks/*?*',async route=>{
+   if(++pollCalls===1)return route.abort('failed');
    const view=f.c.writeback.latest(f.teacher,f.body.activityId);operationEntered();await viewGate;
    const data=late==='success'?{...view,operationRevision:999}:{error:{code:'SESSION_INVALID',message:'OLD A INVALID'}};
    deliveries.push(route.fulfill({status:late==='success'?200:401,contentType:'application/json',body:JSON.stringify(data)}));await deliveries.at(-1);
   });
-  let notesCalls=0;
-  await teacher.route('**/api/activity/guided-notes?*',async route=>{
-   if(++notesCalls!==1)return route.fallback();
-   const notes={...f.c.activity.notesView(f.body.activityId),latestWriteback:{...f.c.writeback.latest(f.teacher,f.body.activityId),operationRevision:1000}};notesEntered();await viewGate;
-   deliveries.push(route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(notes)}));await deliveries.at(-1);
-  });
-  await write(teacher).click();await entered;const a=f.c.writeback.latest(f.teacher,f.body.activityId).operationId;
-  await teacher.getByRole('button',{name:'重新取得寫回狀態',exact:true}).click();await notesReady;
+  await write(teacher).click();await expect(teacher.getByRole('button',{name:'重新查詢',exact:true})).toBeVisible();const a=f.c.writeback.latest(f.teacher,f.body.activityId).operationId;
+  await entered;
   releaseWrite();await f.c.writeback.wait(a);await write(other).click();await expect(other.getByTestId('writeback-status')).toHaveText('已讀回核對完成');
   const b=f.c.writeback.latest(f.teacher,f.body.activityId).operationId;expect(b).not.toBe(a);
-  await teacher.getByRole('button',{name:'重新取得寫回狀態',exact:true}).click();await expect(teacher.getByTestId('writeback-status')).toHaveAttribute('data-operation-id',b);
-  const oldResponses=Promise.all([teacher.waitForResponse(r=>r.url().includes('/writebacks/'+a)),teacher.waitForResponse(r=>r.url().includes('/activity/guided-notes?'))]);
+  await teacher.getByRole('button',{name:'重新查詢',exact:true}).click();await expect(teacher.getByTestId('writeback-status')).toHaveAttribute('data-operation-id',b);
+  const oldResponses=Promise.all([teacher.waitForResponse(r=>r.url().includes('/writebacks/'+a))]);
   releaseViews();await Promise.all((await oldResponses).map(r=>r.finished()));await Promise.all(deliveries);
   await teacher.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   await expect(teacher.getByTestId('writeback-status')).toHaveText('已讀回核對完成');await expect(teacher.getByTestId('writeback-status')).toHaveAttribute('data-operation-id',b);
   await expect(write(teacher)).toBeEnabled();await expect(teacher.getByText('OLD A INVALID')).toHaveCount(0);expect(await teacher.evaluate(()=>localStorage.getItem('classroomquiz.session'))).toBe(f.teacher);
   expect(f.c.sheetsAccess.calls.filter(c=>c.method==='writeValues')).toHaveLength(1);
  }finally{releaseWrite?.();releaseViews?.();await f.cleanup();}
+});
+
+
+test('status retry appears only after a query failure and shows progress without writing',async({browser})=>{
+ const f=await scenario(browser,1);let release;try{
+  const teacher=await f.pageFor(f.teacher,'teacher');
+  await expect(teacher.getByRole('button',{name:'重新取得寫回狀態',exact:true})).toHaveCount(0);
+  await expect(teacher.getByRole('button',{name:'重新查詢',exact:true})).toHaveCount(0);
+  let calls=0;const gate=new Promise(r=>{release=r;});
+  await teacher.route('**/api/activity/guided-notes?*',async route=>{
+   if(++calls===1)return route.abort('failed');
+   await gate;return route.fallback();
+  });
+  await teacher.reload();
+  await expect(teacher.getByText('無法取得最新寫回狀態，請重新查詢。')).toBeVisible();
+  await expect(write(teacher)).toBeDisabled();
+  await teacher.getByRole('button',{name:'重新查詢',exact:true}).click();
+  await expect(teacher.getByRole('button',{name:'查詢中…',exact:true})).toBeDisabled();
+  release();
+  await expect(teacher.getByText('無法取得最新寫回狀態，請重新查詢。')).toHaveCount(0);
+  await expect(write(teacher)).toBeEnabled();
+  await expect(teacher.getByRole('button',{name:'重新查詢',exact:true})).toHaveCount(0);
+  expect(f.c.sheetsAccess.calls.filter(c=>c.method==='writeValues')).toHaveLength(0);
+ }finally{release?.();await f.cleanup();}
 });
