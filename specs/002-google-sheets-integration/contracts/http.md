@@ -17,7 +17,7 @@
 | POST /activity/guided-notes/writebacks/:operationId/reconcile | teacher；`{activityId}`，僅原 pending 或仍有 unresolvedAttempt 的 conflict | 202 原 operation（保留原快照，revision 遞增）；若執行中 409 BUSY；不建立新快照，不承諾一定可重送 |
 | GET /activity/guided-notes/export | 未登入／student 先依既有驗權拒絕；teacher | 410 EXCEL_FLOW_RETIRED，說明改用手動原表寫回；不下載 XLSX |
 
-POST 202 代表操作已接受，不代表雲端已寫入。後端 worker 與 HTTP 連線斷開解耦；client timeout 先查老師 NotesView 找 operation，不重送 POST。手動重新取得狀態或老師頁刷新可恢復最新操作摘要；不自動送 reconcile。UI 可在操作進行期間每 1 秒只查本機 GET，terminal 後停止，不輪詢 Google。不新增對學生 Socket 的通知。
+POST 202 代表操作已接受，不代表雲端已寫入。後端 worker 與 HTTP 連線斷開解耦；client timeout 先查老師 NotesView 找 operation，不重送 POST。老師頁重新整理會透過 NotesView 恢復最新操作摘要；不自動送 reconcile。UI 在操作進行期間每 1 秒只查本機 operation GET，terminal 後停止，不輪詢 Google。正常畫面不提供常駐的手動查詢按鈕；NotesView 或 operation GET 查詢失敗時，顯示「無法取得最新寫回狀態，請重新查詢。」及「重新查詢」按鈕。點擊後以 NotesView GET 重新取得來源與最新操作摘要，期間按鈕顯示「查詢中…」並停用，成功後隱藏提示與按鈕，失敗則保留重試入口；自動輪詢恢復成功也會清除失敗提示。查詢失敗或手動查詢期間停用新寫回；查詢不檢查 Google 編輯權限、不寫入、不自動 reconcile。Session 失效仍走既有登入失效處理，過期回覆與錯誤不顯示重試提示。不新增對學生 Socket 的通知。
 
 ## Request validation and source URLs
 
@@ -71,7 +71,7 @@ canReconcile=true 表示可以手動啟動核對，不保證可以安全重送�
 - operationRevision **只在同一 operationId 內比較**，不可比較不同 UUID 的 revision 或時間戳推定先後。前端記憶體維護 currentOperationId、viewEpoch 及 discoveryGeneration，均不持久化，不改後端 quiz revision。
 - Session／activity 改變，以及每次手動 writeback／reconcile 開始前，先遞增 viewEpoch、停止舊輪詢並使舊請求失效。新 writeback 清除 currentOperationId，reconcile 則綁定原 ID。每個 POST／GET 都捕捉 Session 世代、activityId、viewEpoch；任何一項不符，回覆與錯誤均不得變更目前畫面或重新啟動輪詢。
 - POST 成功只在上述上下文仍有效時採用回傳 ID。POST 尚待回覆時，不用 Notes 查詢切換目前操作；回覆遺失／不明時，先再遞增 viewEpoch 使遲到 POST 失效，再查 NotesView 恢復操作，不重送 POST。BUSY／PENDING 回覆亦先進入此唯讀恢復流程，不自動 reconcile。
-- 首次載入／刷新／上述恢復時，以 NotesView 作操作發現。每次發現請求遞增 discoveryGeneration，只接受同 epoch 且最新 generation 的結果，才設定其 latestWriteback ID（可為 null）。operation GET 只能更新 currentOperationId 相同且 revision 不較舊的資料，不能自己選擇另一個操作。其他老師頁籤的新操作由明確的 Notes 重新查詢發現，不以舊操作 polling 切換。
+- 首次載入／刷新／上述恢復時，以 NotesView 作操作發現。每次發現請求遞增 discoveryGeneration，只接受同 epoch 且最新 generation 的結果，才設定其 latestWriteback ID（可為 null）。operation GET 只能更新 currentOperationId 相同且 revision 不較舊的資料，不能自己選擇另一個操作。其他老師頁籤的新操作可由重新整理老師頁面，或查詢失敗後按「重新查詢」取得的 NotesView 發現；正常畫面沒有常駐查詢入口，舊操作 polling 不會自動切換到其他頁籤的新操作。
 - 必測：操作 A 的高 revision 回覆，在 B 的 POST 成功或有效 Notes 發現 B 後抵達，仍須忽略；較舊 Notes 回覆不能把 B 換回 A；同 ID revision 倒序、POST 遺失後晚到、Session／activity 改變也須忽略。不新增資料庫、伺服器全域操作排序或遠端請求取消保證。
 
 ## Error envelope and mapping
