@@ -15,10 +15,13 @@ import {createStore} from './store/runtime-store.js';
 import {AuthorizationService} from './services/authorization-service.js';
 import {CommandDispatcher} from './services/command-dispatcher.js';
 import {AppError,errorHandler} from './api/errors.js';
-export function createApp({config,store=createStore(),register}={}){
+import {SheetsAccess} from './services/sheets-access.js';
+import {WritebackCoordinator} from './services/writeback-coordinator.js';
+export function createApp({config,store=createStore(),register,sheetsAccess}={}){
   const app=express();app.disable('x-powered-by');app.disable('etag');
-  const context={store,config,auth:new AuthorizationService(store,config.password),dispatcher:new CommandDispatcher(store)};app.locals.context=context;
+  const context={store,config,sheetsAccess:sheetsAccess??new SheetsAccess({credentialPath:config.googleCredentialPath}),auth:new AuthorizationService(store,config.password),dispatcher:new CommandDispatcher(store)};app.locals.context=context;
+  context.writeback=new WritebackCoordinator(context);
   app.use((req,res,next)=>{if(req.headers.origin&&req.headers.origin!==config.origin)return next(new AppError('ORIGIN_FORBIDDEN'));next();});
   app.use(express.json());app.get('/api/health',(req,res)=>res.json({status:'ok'}));
-  context.activity=new ActivityService(store,context.dispatcher,new GuidedNotesService());context.sync=new SynchronizationService(store,context.auth,context.activity);context.questions=new QuestionService(context);context.submissions=new SubmissionService(context);registerQuestions(app,context);registerSubmissions(app,context);registerGroups(app,context);registerSessions(app,context);registerPreparation(app,context);registerGuidedNotes(app,context);registerActivity(app,context);if(register)register(app,context);app.use(errorHandler);return app;
+  context.activity=new ActivityService(store,context.dispatcher,new GuidedNotesService(context.sheetsAccess));context.sync=new SynchronizationService(store,context.auth,context.activity);context.questions=new QuestionService(context);context.submissions=new SubmissionService(context);registerQuestions(app,context);registerSubmissions(app,context);registerGroups(app,context);registerSessions(app,context);registerPreparation(app,context);registerGuidedNotes(app,context);registerActivity(app,context);if(register)register(app,context);app.use(errorHandler);return app;
 }

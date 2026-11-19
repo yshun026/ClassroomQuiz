@@ -1,0 +1,19 @@
+
+> classroomquiz-frontend@1.0.0 test:e2e
+> playwright test --config ../tests/e2e/playwright.config.js google-sheets-recovery.spec.js
+
+[WebServer] (node:10860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20268) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:14604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 ..\tests\e2e\google-sheets-recovery.spec.js:7:1 › two teacher pages share busy/pending ID; unknown marker reconciles read-only, matching content then succeeds (9.9s)
+  ok 2 ..\tests\e2e\google-sheets-recovery.spec.js:23:1 › Google authorization failure retains teacher session and refresh never sends a write (2.4s)
+  ok 3 ..\tests\e2e\google-sheets-recovery.spec.js:31:39 › late A success and old Notes cannot replace discovered B or alter controls (4.2s)
+  ok 4 ..\tests\e2e\google-sheets-recovery.spec.js:31:39 › late A error and old Notes cannot replace discovered B or alter controls (3.7s)
+
+  4 passed (33.3s)

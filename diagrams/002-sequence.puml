@@ -1,0 +1,157 @@
+@startuml
+title Feature 002 - Read, Quiz and Manual Writeback (DRAFT)
+skinparam shadowing false
+hide footbox
+actor Teacher
+participant "Teacher Browser" as TB
+participant "Authorization" as Auth
+participant "Activity / Quiz\nOrdered Processing" as Quiz
+participant "Guided Notes /\nWriteback Coordinator" as Notes
+database "Runtime Store" as Store
+participant "Sheets Access\nBackend Service Account" as Access
+participant "Original Google Sheet" as Google
+participant "Students / Role Sync" as Students
+
+group US1 - preparation, no Google user login
+  Teacher -> TB : password login; set groups; paste Sheets URL
+  TB -> Auth : read source (teacher identity)
+  Auth -> Notes : authorized preparation
+  Notes -> Store : acquire preparation lock
+  alt group count missing or invalid
+    Notes --> TB : require valid group count; do not read or retain source
+  else group count valid
+  Notes -> Access : read source from validated URL identity
+  Access -> Google : read all supported GRID sheets, including hidden
+  Google --> Access : sheet identities / cells / merges / structure\navailable permission information (no test writes)
+  Access --> Notes : source data or access error
+  Notes -> Notes : whole-cell literal Q1..QN, unique / contiguous\nreject marker cells with partial-character formatting\nrecord dynamic locations; list excluded sheets
+  alt known non-editable source or answer cell
+    Notes --> TB : fix sharing / protected ranges; no activity commit
+  else all valid and groups ready
+    Notes -> Store : atomically commit source + locations + Q1 WAITING
+    Notes --> TB : source / question count / prepared
+    opt write permission cannot be confirmed without modification
+      Notes --> TB : write permission not confirmed (teacher warning)\nread success is NOT a write guarantee
+    end
+  else read or validation failure
+    Notes --> TB : safe reason / location; no partial activity
+  end
+  end
+  Notes -> Store : release preparation lock
+end
+
+group US2 - existing quiz, independent of cloud waiting
+  TB -> Auth : manual start
+  Auth -> Quiz : validate teacher / activity / question
+  Quiz -> Store : WAITING -> ANSWERING
+  Quiz -> Students : authorized phase snapshots
+  Students -> Auth : student answer
+  Auth -> Quiz : validated binding
+  Quiz -> Store : same ordered boundary: accept once / assign rank
+  Quiz -> TB : live teacher record
+  Quiz -> Students : submitting identity only; no observer event
+  TB -> Auth : manual close
+  Auth -> Quiz : validated teacher
+  Quiz -> Store : same order as submit; freeze accepted results
+  Quiz -> Students : publish; RESULTS or final COMPLETED
+  opt non-final Next
+    TB -> Auth : next (teacher / activity / current question)
+    Auth -> Quiz : validated next -> WAITING, manual Start required
+  end
+end
+
+group US3/US4 - manual writeback, any prepared phase
+  Teacher -> TB : New writeback OR explicit reconcile of original operation
+  TB -> Auth : writeback(activityId) OR reconcile(activityId, operationId)
+  Auth -> Notes : validate teacher and bound source
+  Notes -> Store : acquire per-activity operation boundary
+  alt another operation running
+    Notes --> TB : busy; no parallel write
+  else new writeback while pending barrier exists
+    Notes --> TB : WRITEBACK_PENDING + original operationId\nno worker / no implicit reconcile
+  else reconcile request is not for an eligible original operation
+    Notes --> TB : WRITEBACK_NOT_PENDING / stale or invalid operation
+  else accepted request; acquire running ownership
+  alt explicit reconcile of pending or conflict with unresolved attempt
+    Store --> Notes : restore ORIGINAL snapshot / targets / expected text\nnever capture newly closed winners
+  else new writeback without pending barrier
+    Notes -> Store : capture immutable closed minimum-rank winners
+    Store --> Notes : snapshot + source + locations + verified evidence
+  end
+  alt original snapshot has no fills
+    Notes -> Store : NO_CHANGES; running=false; no Google I/O
+    Notes --> TB : no eligible closed answers
+  else original snapshot has fills
+  Notes -> Store : load this activity's WritebackEvidence / pending records
+  Notes -> Access : preflight/reconcile targets and structure\nusing imported mapping + evidence + original operation
+  Access -> Google : read original source / targets
+  Google --> Access : current values / types / identities / structure
+  Access --> Notes : target verification data or read error
+  Notes -> Notes : recorded expected answers may replace original markers\nnot missing placeholders; unexplained changes still conflict\nnew partial-character formatting in answer cells is a conflict
+  alt detected conflict or untrusted mapping
+    Notes -> Store : CONFLICT; stop all unsent updates\nretain unresolvedAttempt if earlier outcome unknown
+    Notes --> TB : conflict locations; no forced overwrite
+  else read cannot establish outcome
+    Notes -> Store : PENDING_VERIFICATION if possibly sent; otherwise FAILED
+    Notes --> TB : pending verification or safe read error
+  else preflight valid
+    Notes -> Notes : original markers eligible; verified prior text skipped\npending exact expected text reconciled; other values conflict
+    note over Notes,Google
+      A-04: external editors must not modify targets/structure during activity.
+      Preflight and write are NOT a remote lock or atomic comparison.
+      Plan must validate protection feasibility; no absolute concurrent-edit guarantee.
+    end note
+    alt old remote outcome unknown AND uncompleted original markers remain
+      Notes -> Store : retain PENDING_VERIFICATION + unresolvedAttempt barrier
+      Notes --> TB : read-only reconciliation; NO second write\nverified expected text is not an uncompleted marker\nlocal settle / 180s / 200s are not remote termination proof
+    else eligible markers remain AND old attempts safe / no earlier attempt
+    opt eligible original markers remain AND all preflight checks pass
+      Notes -> Access : write only eligible original cells as literal text
+      Access -> Google : update target VALUES only
+      alt definitely rejected / not sent
+        Google --> Access : safe failure
+        Access --> Notes : known failure
+        Notes -> Store : FAILED; running=false; no unresolved attempt\nreturn without verification GET; quiz data unchanged
+      else possibly sent / reply lost
+        Access --> Notes : outcome unknown
+        Notes -> Store : retain original operation as pending verification
+      else remote response received
+        Google --> Access : applied response
+        Access --> Notes : request completed, not yet verified success
+      end
+      opt result APPLIED or UNKNOWN (not NOT_SENT / KNOWN_REJECTED)
+        Notes -> Access : read back original targets when possible
+        Access -> Google : verify exact values / types / mapping
+        Google --> Access : values or error
+        Access --> Notes : per-target verification results
+        Notes -> Store : verified evidence / pending / conflict\nSUCCEEDED only when all verified AND local transport settled
+        Notes --> TB : per-target outcome; never partial as whole success
+      end
+    end
+    else no remaining eligible markers; all snapshot targets verified
+      Notes -> Store : content synchronized; no write needed\nnew operation allowed only after local transport settles
+    end
+  end
+  end
+  Notes -> Store : release running ownership only after local transport settles\nretain barrier for unresolved remote writes with remaining markers
+  note over Notes,Store
+    No cloud action mutates quiz phase, answers or rank.
+    Pending is reconciled before a new snapshot is allowed.
+    No blind retry, background write, automatic restore or whole-sheet rollback.
+    FAILED with no barrier: repair access, then explicit NEW operation.
+    CONFLICT with unresolvedAttempt / PENDING: reconcile ORIGINAL only.
+    Status GET / browser refresh reads local state only; never auto-reconciles.
+    Restart may clear local operation; remote values remain.
+  end note
+  end
+end
+legend bottom
+  Logical design; final implementation consistency review: 2026-11-19.
+  Q1..QN dynamic; six questions / three groups are demonstration data.
+  DA-T058-01: protected live test remains FAIL (MISSING / UNKNOWN).
+  Generic access errors do not prove protected-range denial.
+  Live exactly-once / timeout / pending reconcile evidence is not claimed.
+  Prior Specify / cross-group confirmation retained: 2026-11-18.
+  Clarify integrated version approved by user: 2026-11-18.
+endlegend
+@enduml

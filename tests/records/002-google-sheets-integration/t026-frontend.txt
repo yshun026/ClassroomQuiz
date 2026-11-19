@@ -1,0 +1,21 @@
+
+> classroomquiz-frontend@1.0.0 test
+> node --test tests/*.test.js
+
+✔ source import sends only JSON URL and teacher Notes uses bound activity (3.8327ms)
+✔ old activity Notes and reset/import late replies cannot replace current source (2.4044ms)
+✔ full snapshots restore the newest state; preparation and a different student identity reset the baseline (1.6084ms)
+✔ old preparation, activity and identity snapshots cannot reset an established baseline (0.3152ms)
+✔ late invalid response cannot erase a newer token (1.7714ms)
+✔ late success and ABA token transitions are rejected by request generation (0.5137ms)
+✔ stale download and network failure do not affect a replacement session (0.7589ms)
+✔ student compares only its own visible revision; teacher compares global revision (0.2388ms)
+✔ test identities use distinct profiles (22.5166ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 457.1775

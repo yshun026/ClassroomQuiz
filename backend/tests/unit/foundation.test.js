@@ -21,9 +21,9 @@ test('malformed JSON and invalid answer types report safe input errors without m
  assert.deepEqual(f.c.activity.teacherView(),before);assert.equal(f.c.store.activity.questions.get(1).submissionsByGroup.size,0);
 });
 
-test('recognized multipart rejection is a safe file error; unknown errors remain internal',async()=>{
+test('retired multipart preparation is safely rejected; unknown errors remain internal',async()=>{
  const f=quizFixture(),before=f.c.activity.teacherView();const bad=await request(f.app).post('/api/preparation/guided-notes').set(bearer(f.teacher)).attach('wrong-field',Buffer.from('synthetic'),'input.xlsx');
- assert.equal(bad.status,422);assert.equal(bad.body.error.code,'FILE_UNREADABLE');assert.deepEqual(f.c.activity.teacherView(),before);
+ assert.equal(bad.status,400);assert.equal(bad.body.error.code,'INVALID_INPUT');assert.deepEqual(f.c.activity.teacherView(),before);
  const app=createApp({config:loadConfig({ADMIN_PASSWORD:'test-only'}),register:app=>app.get('/api/unknown-failure',()=>{throw Error('private stack and password');})});
  const unknown=await request(app).get('/api/unknown-failure');assert.equal(unknown.status,500);assert.equal(unknown.body.error.code,'INTERNAL_ERROR');assert(!JSON.stringify(unknown.body).includes('private'));
 });

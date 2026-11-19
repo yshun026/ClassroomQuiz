@@ -1,0 +1,62 @@
+[
+  {
+    "file": "backend/tests/unit/google-config.test.js",
+    "gitBlob": "02064bc93b72c535f88cbddb54905907d60c6c54",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "backend/tests/integration/group-session-http.test.js",
+    "gitBlob": "e84dc81be64c3b5ce69cb61d810def6a2328940f",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "backend/tests/integration/preparation-http.test.js",
+    "gitBlob": "158abeaf3a19eded6cbab0c813af8f6469482293",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "backend/tests/unit/foundation.test.js",
+    "gitBlob": "c90fa427a30b4b6479a1b8ac44168d94e590221f",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "tests/e2e/student-identity.spec.js",
+    "gitBlob": "73cf9270a2ec5f7d69d23a77845217d9439a4f78",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "tests/fixtures/guided-notes/corrupt.xlsx",
+    "gitBlob": "c3cd6c052b6ff6c2a73976a518bfeaefc87a36f0",
+    "rule": "invalid-xlsx-archive",
+    "reason": "Reviewed intentional unreadable historical fixture; raw bytes scanned"
+  },
+  {
+    "file": "INDEX:backend/tests/integration/group-session-http.test.js",
+    "gitBlob": "d30ee3b425e8465c6dbd1975d493a5fe5ee5bdd7",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "INDEX:backend/tests/integration/preparation-http.test.js",
+    "gitBlob": "6a229160b3c02355f6182bd3335f385fc7fbd0d9",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "INDEX:backend/tests/unit/foundation.test.js",
+    "gitBlob": "f24f34afd0dc1876a0b28ecffe6271ddcc433637",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  },
+  {
+    "file": "INDEX:tests/e2e/student-identity.spec.js",
+    "gitBlob": "60e1e624a8cdabaa7a44840ae3708741fcd41e31",
+    "rule": "literal-password",
+    "reason": "Reviewed isolated synthetic test configuration/login literals; not application environment password"
+  }
+]

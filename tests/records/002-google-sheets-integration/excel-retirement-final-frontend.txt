@@ -1,0 +1,27 @@
+
+> classroomquiz-frontend@1.0.0 test
+> node --test tests/*.test.js
+
+✔ source import sends only JSON URL and teacher Notes uses bound activity (4.1318ms)
+✔ old activity Notes and reset/import late replies cannot replace current source (1.0811ms)
+✔ different operations never compare revisions; A late GET and older Notes cannot replace B (0.8818ms)
+✔ same-operation out-of-order replies retain current revision, and Session/reset invalidates requests (0.6481ms)
+✔ lost POST response discovers existing operation without replay; busy/pending recovery is read-only (0.896ms)
+✔ a late POST response cannot replace a newer operation selected after reset (0.5654ms)
+✔ explicit reconcile keeps original ID, bumps epoch and never automatically repeats POST (0.7306ms)
+✔ lost reconcile reply discovers same operation; Google failure view never clears local identity (0.4973ms)
+✔ full snapshots restore the newest state; preparation and a different student identity reset the baseline (1.4303ms)
+✔ old preparation, activity and identity snapshots cannot reset an established baseline (0.3344ms)
+✔ late invalid response cannot erase a newer token (1.6809ms)
+✔ late success and ABA token transitions are rejected by request generation (0.7812ms)
+✔ stale current-activity response and network failure do not affect a replacement session (2.8269ms)
+✔ student compares only its own visible revision; teacher compares global revision (0.4568ms)
+✔ test identities use distinct profiles (19.2804ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 570.7865

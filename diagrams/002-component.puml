@@ -1,0 +1,74 @@
+@startuml
+title Feature 002 - Google Sheets Guided Notes (DRAFT)
+skinparam shadowing false
+skinparam componentStyle rectangle
+left to right direction
+actor Teacher
+actor Student
+component "Teacher Browser\nPassword + Sheets URL\nManual writeback / status" as TB
+component "Student Browser\nNo Google account" as SB
+package "Existing Local Backend" {
+  component "Role / Session Validation" as Auth
+  component "Activity / Question Management\nWAITING / ANSWERING / RESULTS / COMPLETED" as Activity
+  component "Submission Management\nServer order / one per group-question" as Quiz
+  component "Role-filtered Synchronization" as Sync
+  component "Guided Notes\nValidate all supported sheets\nDynamic placeholder mapping" as Notes
+  component "Writeback Coordination\nImmutable closed-winner snapshot\nOne operation per activity\nPreflight / reconcile / verify" as Write
+  component "Google Sheets Access\nBackend service identity only" as Access
+  database "Runtime Store\nActivity / source / locations\nSessions / submissions\nOperation / verified evidence" as Store
+}
+cloud "Google Sheets API\nOriginal authorized spreadsheet" as Google
+artifact "Service Account credential\nOutside repository\nNever sent to browsers" as Cred
+Teacher --> TB
+Student --> SB
+TB --> Auth : teacher operations
+SB --> Auth : claim / resume / submit
+Auth --> Activity
+Auth --> Quiz
+Auth --> Notes : prepare (teacher only)
+Auth --> Write : manual writeback (teacher only)
+Activity --> Store
+Quiz --> Store
+Activity --> Sync
+Quiz --> Sync
+Sync --> Store
+Sync --> TB : teacher view
+Sync --> SB : own data before close\nclosed results after close
+Notes --> Store : valid groups + complete source validation\nthen commit; no validated-source draft
+Notes --> Access : read all supported GRID sheets\nincluding hidden sheets
+note bottom of Notes
+  Reject answer markers with partial-character formatting.
+  Known non-editable source / answer cells: reject preparation.
+  Unknown write permission: allow valid source, warn teacher.
+  Permission checks never write test values.
+  Preserve whole-cell formatting and non-answer rich text.
+end note
+Write --> Store : snapshot / operation / evidence
+Write --> Access : check original targets\nwrite eligible values / read back
+Access --> Cred : backend authentication
+Access --> Google : read / write existing authorized source
+note bottom of Google
+  Owner shares each source with service identity.
+  Editor and protected-range permissions still apply.
+  External edits may race with preflight: no lock implied.
+end note
+note bottom of Write
+  Detected conflict: stop unsent changes.
+  Unknown result: retain snapshot, reconcile before retry.
+  Structure checks use imported mapping + this activity's
+  evidence / pending operation, not raw markers alone.
+  No automatic writeback or forced overwrite.
+  Cloud waiting never decides quiz rank or close.
+end note
+note bottom of Store
+  One in-memory activity; restart may clear local state.
+  Restart does not undo remote answers.
+  Source reuse requires restored placeholders or fresh template.
+end note
+legend bottom
+  Draft for spec.md US1-US4 / FR-001..021.
+  No Excel formal flow. Feature 001 artifacts remain historical.
+  Prior Specify / cross-group confirmation retained: 2026-11-18.
+  Clarify integrated version approved by user: 2026-11-18.
+endlegend
+@enduml

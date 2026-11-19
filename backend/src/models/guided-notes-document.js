@@ -1,1 +1,0 @@
-export class GuidedNotesDocument{#source;constructor(buffer,workbook,locations){this.#source=Buffer.from(buffer);this.parsedWorkbook=workbook;this.placeholderLocations=locations;}get originalBuffer(){return Buffer.from(this.#source);}}

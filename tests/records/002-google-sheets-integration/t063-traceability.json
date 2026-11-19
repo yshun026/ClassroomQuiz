@@ -1,0 +1,2151 @@
+{
+  "asOf": "2026-11-19",
+  "countingRule": "54 trace rows; tags overlap; not test case counts or all-pass counts",
+  "rows": [
+    {
+      "id": "FR-001",
+      "summary": "P／W／F，正式URL→Sheets→原表、export410",
+      "implementation": "P／W／F，正式URL→Sheets→原表、export410",
+      "tasks": "T020／023–026／040／042／061",
+      "testIndex": "H-P／H-W、guided-notes-export E2E；無Excel正式UI",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-002",
+      "summary": "A，backend Service Account；既有本機身分",
+      "implementation": "A，backend Service Account；既有本機身分",
+      "tasks": "T002–010／013–014",
+      "testIndex": "U-A、H-P與E-P無Google登入",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-003",
+      "summary": "P／A，URL allowlist取ID、非任意fetch",
+      "implementation": "P／A，URL allowlist取ID、非任意fetch",
+      "tasks": "T010／015–023",
+      "testIndex": "U-P URL案例、U-A invalid IDs／host、H-P任意欄位",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-004",
+      "summary": "P，全GRID含hidden、gid不限制、excluded",
+      "implementation": "P，全GRID含hidden、gid不限制、excluded",
+      "tasks": "T018–022",
+      "testIndex": "U-P dynamic A/B、E-P excluded",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "非GRID excluded與gid不限制主要為離線／E2E；B hidden真實已回報。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-005",
+      "summary": "P，whole-cell Q1..QN／merge master／runs拒絕",
+      "implementation": "P，whole-cell Q1..QN／merge master／runs拒絕",
+      "tasks": "T015／018–021",
+      "testIndex": "U-P非法及permission、H-P整份拒絕與位置",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "非法／formula／rich runs真實負例NOT VERIFIED；有效marker／merge已有真表。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-006",
+      "summary": "P，先組數／全驗後commit、DENIED／UNKNOWN",
+      "implementation": "P，先組數／全驗後commit、DENIED／UNKNOWN",
+      "tasks": "T016–023",
+      "testIndex": "H-P全5案例、U-P保護／named/table、E-P",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "DEVIATION_ACCEPTED",
+        "NOT VERIFIED",
+        "FAIL"
+      ],
+      "limitations": "已知DENIED準備拒絕真實NOT VERIFIED；protected FAIL MISSING／UNKNOWN；DA-T058-01，不能MISSING→false。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE",
+        "DA"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-007",
+      "summary": "Q／P／W，每次teacher／活動／目標驗權",
+      "implementation": "Q／P／W，每次teacher／活動／目標驗權",
+      "tasks": "T016／023／033／040／045／050",
+      "testIndex": "H-P、H-W、R-H auth／任意目標",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS"
+      ],
+      "limitations": "後端拒學生／失效／任意目標有離線；人工只確認學生無老師控制，不冒充HTTP攻擊驗收。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-008",
+      "summary": "Q／W，原公平／隔離／同步、I/O外置",
+      "implementation": "Q／W，原公平／隔離／同步、I/O外置",
+      "tasks": "T027–031／053–056",
+      "testIndex": "Q-T／E-Q與3個真worker等待案例",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "2秒／晚加入／同身分多頁籤人工細項NOT VERIFIED；四階段／順位／隔離真實PASS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-009",
+      "summary": "W／F，四階段只手動、無fills不寫",
+      "implementation": "W／F，四階段只手動、無fills不寫",
+      "tasks": "T032／039–043",
+      "testIndex": "H-W NO_CHANGES、E-W、export四階段E2E",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-010",
+      "summary": "immutable snapshot、最小rank／無人排除",
+      "implementation": "immutable snapshot、最小rank／無人排除",
+      "tasks": "T032／035／039／053",
+      "testIndex": "U-S雙序、H-W immutable／E-W後閉題排除",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-011",
+      "summary": "W，來源基準＋Evidence／pending動態位置",
+      "implementation": "W，來源基準＋Evidence／pending動態位置",
+      "tasks": "T034／038／044／047",
+      "testIndex": "U-S／R-U無誤缺題／他題marker文字",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-012",
+      "summary": "W，全批先驗，偵測衝突全停／無重綁",
+      "implementation": "W，全批先驗，偵測衝突全停／無重綁",
+      "tasks": "T034／038–039／044／047",
+      "testIndex": "H-W later-cell zero write、R-U結構／formula",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS"
+      ],
+      "limitations": "人工衝突歸屬A/B、格址未提供；不推定兩表各測；A-04無CAS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-013",
+      "summary": "A／W，精確單格stringValue、保留其他格式",
+      "implementation": "A／W，精確單格stringValue、保留其他格式",
+      "tasks": "T011／018–021／034／038–039",
+      "testIndex": "U-A body mask／surrogate／2MiB、H-W兩fake全raw深比",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "T057只比較API回傳欄位；人工rich text／行列像素尺寸細項NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-014",
+      "summary": "W，讀回才成功／逐題不混同",
+      "implementation": "W，讀回才成功／逐題不混同",
+      "tasks": "T033／036–039／043–054",
+      "testIndex": "H-W 2xx readfail、R-U部分／lost reply、E-W",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT RUN"
+      ],
+      "limitations": "真實丟回覆／逾時／部分結果NOT RUN；正常成功與重複不是錯誤時序證據。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-015",
+      "summary": "W，活動Evidence略過、外部變更衝突",
+      "implementation": "W，活動Evidence略過、外部變更衝突",
+      "tasks": "T037–038／044／047–049",
+      "testIndex": "R-U Evidence／還原marker、E-R實際UI略過／改值",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "略過與來源不變不證明遠端零請求／零重送，該真實性質NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-016",
+      "summary": "W，原snapshot／attempts＋UNKNOWN屏障",
+      "implementation": "W，原snapshot／attempts＋UNKNOWN屏障",
+      "tasks": "T044–054",
+      "testIndex": "R-U／R-H未知原marker只讀、manual reconcile",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED",
+        "NOT RUN"
+      ],
+      "limitations": "真逾時／PENDING reconcile NOT RUN；遠端恰一次NOT VERIFIED；原快照守衛有離線證據。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-017",
+      "summary": "W，全活動互斥／舊ownership／雲端獨立",
+      "implementation": "W，全活動互斥／舊ownership／雲端獨立",
+      "tasks": "T045–054",
+      "testIndex": "R-H雙teacher、E-R晚到A／Notes、Q-T等待",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真實多老師併發／晚到HTTP細項NOT VERIFIED；互斥離線與E2E，不冒充真Google時序。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-018",
+      "summary": "A／W／F，安全錯誤／修權／不清活動Session",
+      "implementation": "A／W／F，安全錯誤／修權／不清活動Session",
+      "tasks": "T006–010／024–025／041–052",
+      "testIndex": "U-A安全envelope、R-U撤權readfail、E-R Google401",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "DEVIATION_ACCEPTED",
+        "NOT VERIFIED",
+        "FAIL"
+      ],
+      "limitations": "一般403/404不證明保護專屬拒絕，該歸因NOT VERIFIED；protected真實FAIL保留。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE",
+        "DA"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-019",
+      "summary": "A／F，backend外置key／不洩密",
+      "implementation": "A／F，backend外置key／不洩密",
+      "tasks": "T002–010／060",
+      "testIndex": "U-A key canonical／scope、security.md候選與bundle掃描",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS"
+      ],
+      "limitations": "T060是既有候選範圍檢查，非本輪新掃描／GitHub未來全部產物保證。",
+      "evidenceLocations": [
+        "OFF"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-020",
+      "summary": "P／F／memory，restart清本機不取消雲端，手動範本重用",
+      "implementation": "P／F／memory，restart清本機不取消雲端，手動範本重用",
+      "tasks": "T020／057／059／061",
+      "testIndex": "REUSE、restart-process、E-P新增可見還原提示",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "安全換場使用者確認；精確operation欄位／重啟方式／已填來源人工拒絕細節NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "FR-021",
+      "summary": "分層證據／兩真表／人工／三圖",
+      "implementation": "分層證據／兩真表／人工／三圖",
+      "tasks": "T005／014／026／031／043／054–064",
+      "testIndex": "automated.md、diagram-consistency.md與全部紀錄存在",
+      "evidenceTypes": [
+        "USER_APPROVED_FINAL_ACCEPTANCE"
+      ],
+      "limitations": "2026-11-19使用者核准專案內部最終接受；原protected FAIL、DA-T058-01、NOT VERIFIED／NOT RUN保留，不代表所有分支PASS或助教接受。",
+      "evidenceLocations": [
+        "DOC"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-001",
+      "summary": "老師以兩份不同網址／分頁／格址範本各完成準備，題數及位置 100% 正確，老師與學生均無 Google 登入及 Excel 中介步驟。",
+      "implementation": "P/F",
+      "tasks": "T026／057／059，U-P A/B、E-P、LIVE",
+      "testIndex": "T026／057／059，U-P A/B、E-P、LIVE",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-002",
+      "summary": "全部符合題目在原表正確位置 100% 為最快有效完整文字；未閉題／無人題及非答案內容沒有非預期變更。",
+      "implementation": "W/A",
+      "tasks": "T043／057／059，H-W／U-A／LIVE文字及保真",
+      "testIndex": "T043／057／059，H-W／U-A／LIVE文字及保真",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-003",
+      "summary": "全部已偵測的人工改值、公式、移格、刪表與標記／結構衝突均拒絕尚未送出的更新，零自動強制覆寫與未核對成功提示。",
+      "implementation": "W",
+      "tasks": "T034／038／044／047／058–059，R-U／H-W／E-R",
+      "testIndex": "T034／038／044／047／058–059，R-U／H-W／E-R",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS"
+      ],
+      "limitations": "受控人工衝突PASS非所有真實結構負例／所有競爭；A-04無遠端CAS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-004",
+      "summary": "重複點擊、雙頁籤、逾時與回覆遺失案例全部有可判定結果；待核對重試不盲覆寫，部分結果不誤報整批成功。",
+      "implementation": "W/F",
+      "tasks": "T045–054／058–059，R-H／E-R／F-T",
+      "testIndex": "T045–054／058–059，R-H／E-R／F-T",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED",
+        "NOT RUN"
+      ],
+      "limitations": "受控時序離線／E2E PASS；真逾時／pending reconcile NOT RUN，精確遠端恰一次NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-005",
+      "summary": "老師加至少三組完成多題活動，維持每組每題最多一筆、閉題後零接受、閉題前零他組作答資訊及正常連線 2 秒內更新；雲端不可用仍可完成已準備搶答。",
+      "implementation": "Q/F",
+      "tasks": "T031／053／056／059，Q-T／E-Q三組／<2秒",
+      "testIndex": "T031／053／056／059，Q-T／E-Q三組／<2秒",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "兩表三組正常人工PASS；人工2秒、晚加入／多頁籤與真雲端故障下搶答NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-006",
+      "summary": "所有負面來源／授權／標記案例無半場活動，所有未授權老師操作拒絕，待提交產物中真實憑證與 Token 數為零。",
+      "implementation": "Q/A",
+      "tasks": "T016／060，H-P／H-W／R-H／security.md",
+      "testIndex": "T016／060，H-P／H-W／R-H／security.md",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "DEVIATION_ACCEPTED",
+        "NOT VERIFIED",
+        "FAIL"
+      ],
+      "limitations": "明確DENIED live NOT VERIFIED、原protected FAIL由DA-T058-01接受證據限制；安全候選檢查有範圍。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "DA"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "SC-007",
+      "summary": "實作完成前保存自動與人工兩類實際證據、兩份授權來源實測與三圖逐項核對；未執行項目 100% 標未執行或受阻。",
+      "implementation": "紀錄／三圖／T064關卡",
+      "tasks": "T055–064，各分類紀錄及三圖",
+      "testIndex": "T055–064，各分類紀錄及三圖",
+      "evidenceTypes": [
+        "USER_APPROVED_FINAL_ACCEPTANCE"
+      ],
+      "limitations": "2026-11-19使用者核准專案內部最終接受；原protected FAIL、DA-T058-01、NOT VERIFIED／NOT RUN保留，不代表所有分支PASS或助教接受。",
+      "evidenceLocations": [
+        "DOC"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.1",
+      "summary": "有效組數＋來源、UNKNOWN提示一次建Q1",
+      "implementation": "P／F；T016–026",
+      "tasks": "P／F；T016–026",
+      "testIndex": "H-P first／DENIED-UNKNOWN、E-P PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "真表為六題來源，三題原scenario由離線覆蓋；UNKNOWN不是可寫保證。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.2",
+      "summary": "新活動不同URL與位置",
+      "implementation": "P；T018–026",
+      "tasks": "P；T018–026",
+      "testIndex": "U-P dynamic A/B、E-P B、REUSE PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.3",
+      "summary": "gid不限制、hidden／excluded",
+      "implementation": "P；T018–022",
+      "tasks": "P；T018–022",
+      "testIndex": "U-P all GRID、E-P excluded PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真B hidden已確認；gid／excluded細項人工NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.4",
+      "summary": "無權／憑證／URL／來源失敗不留半場",
+      "implementation": "A／P；T006–023",
+      "tasks": "A／P；T006–023",
+      "testIndex": "U-A auth／URL、H-P failures／DENIED PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "DEVIATION_ACCEPTED",
+        "NOT VERIFIED",
+        "FAIL"
+      ],
+      "limitations": "read-denied live PASS只證安全存取錯誤；已知DENIED真實NOT VERIFIED且protected FAIL保留。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "LIVE",
+        "DA"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.5",
+      "summary": "非法／公式／runs／缺號／重號拒絕與位置",
+      "implementation": "P；T015／018–021",
+      "tasks": "P；T015／018–021",
+      "testIndex": "U-P九種markers＋formula/runs、H-P PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真實格式負例NOT VERIFIED；不將fake來源拒絕冒充live。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.6",
+      "summary": "先groups、準備mutex、失敗釋放、來源鎖定",
+      "implementation": "P；T016／022–023",
+      "tasks": "P；T016／022–023",
+      "testIndex": "H-P groups／mutex／lock PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "mutex競爭／失敗釋放人工NOT VERIFIED，既有離線與E2E證據。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US1.7",
+      "summary": "未登入／student禁止準備",
+      "implementation": "Q／P；T016／023",
+      "tasks": "Q／P；T016／023",
+      "testIndex": "H-P unauthorized零Access PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真實未授權HTTP測試NOT VERIFIED；後端驗權離線。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US2.1",
+      "summary": "唯一連續rank／每組一次／閉題後拒答",
+      "implementation": "Q；T027–031",
+      "tasks": "Q；T027–031",
+      "testIndex": "Q-T submit-close雙序／duplicate／blank PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "空白提交人工細項NOT VERIFIED；順位／重複／閉後拒改人工PASS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US2.2",
+      "summary": "自己投影、觀察組零額外通知／計數",
+      "implementation": "Q；T028／053",
+      "tasks": "Q；T028／053",
+      "testIndex": "quiz-socket-isolation／E-Q與worker等待PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS"
+      ],
+      "limitations": "未公布答案人工隔離PASS；零額外事件／revision側通道由離線證明。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US2.3",
+      "summary": "Next WAITING、末題COMPLETED、閉題不重開",
+      "implementation": "Q；T027／031",
+      "tasks": "Q；T027／031",
+      "testIndex": "quiz-http／activity-lifecycle／E-Q PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US2.4",
+      "summary": "雲端斷線／等待不擋已載入搶答",
+      "implementation": "Q／W；T030／053",
+      "tasks": "Q／W；T030／053",
+      "testIndex": "sheets-quiz-independence 7項＋E-Q outage PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真Google故障下搶答NOT VERIFIED；本機斷線重連不是Google中斷證據。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US2.5",
+      "summary": "<2秒、晚加入、Session恢復／多頁籤／不重送",
+      "implementation": "Q／F；T028–031／053",
+      "tasks": "Q／F；T028–031／053",
+      "testIndex": "group-session、Socket、E-Q realtime／identity PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "人工2秒／晚加入／多頁籤NOT VERIFIED；四階段刷新／斷線重連人工PASS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.1",
+      "summary": "閉題最小rank原表動態位置、無XLSX",
+      "implementation": "W；T032–043",
+      "tasks": "W；T032–043",
+      "testIndex": "U-S／H-W／E-W PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS"
+      ],
+      "limitations": "僅依已提供結果範圍，不補操作日期／精確數值；共通安全限制適用。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.2",
+      "summary": "未閉／無人不動、無fills零寫",
+      "implementation": "W；T032／039",
+      "tasks": "W；T032／039",
+      "testIndex": "H-W NO_CHANGES／snapshot、E-W PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真無fills零Google傳輸NOT VERIFIED；未閉／無人保marker由T057真API支持。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.3",
+      "summary": "等號／空白／換行／Unicode精確字串",
+      "implementation": "A／W；T011／032／043",
+      "tasks": "A／W；T011／032／043",
+      "testIndex": "U-A string mask／H-W／convergence E2E PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "等號／Unicode／換行真實自動由T057支持，T059人工特殊文字細項NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.4",
+      "summary": "只改目標、非答案公式／格式／merge不改",
+      "implementation": "A／W；T034／038–043",
+      "tasks": "A／W；T034／038–043",
+      "testIndex": "H-W A/B raw深比／U-A PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "人工未明確逐項rich text／行列尺寸NOT VERIFIED；公式定義及一般格式已回報。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.5",
+      "summary": "快照與close雙序，不混後來答案",
+      "implementation": "W；T032／035",
+      "tasks": "W；T032／035",
+      "testIndex": "U-S雙序／H-W held read／E-W later Q2 PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真實close與snapshot競爭NOT VERIFIED；同步雙序離線／E2E。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US3.6",
+      "summary": "學生／失效／舊活動／任意目標拒絕",
+      "implementation": "Q／W；T033／040",
+      "tasks": "Q／W；T033／040",
+      "testIndex": "H-W auth／R-H／ownership PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真未授權／舊ID／任意格址HTTP驗收NOT VERIFIED；後端契約離線。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.1",
+      "summary": "Evidence解釋已取代marker、略過並可加新閉題",
+      "implementation": "W；T037–049",
+      "tasks": "W；T037–049",
+      "testIndex": "R-U evidence＋E-R skip、H-W PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "T057新增後閉題＋重複、T059兩表略過支持；遠端零重送NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.2",
+      "summary": "值／formula／位置／merge／sheet衝突全停",
+      "implementation": "W；T034／044／047",
+      "tasks": "W；T034／044／047",
+      "testIndex": "U-S結構／R-U priorEvidence／E-R external PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "單次人工衝突來源歸屬未提供；其他真結構負例NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.3",
+      "summary": "無證據同答案仍衝突",
+      "implementation": "W；T034／044",
+      "tasks": "W；T034／044",
+      "testIndex": "U-S unexplained same-as-answer／R-U PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真實無依據同答案案例NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.4",
+      "summary": "可能送達逾時／lost reply留快照pending",
+      "implementation": "W；T039／045／049",
+      "tasks": "W；T039／045／049",
+      "testIndex": "U-A200s／H-W／R-H lost POST／R-U lost Google PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT RUN"
+      ],
+      "limitations": "真逾時／lost reply NOT RUN；離線可控時序PASS。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.5",
+      "summary": "原目標全部核對，UNKNOWN marker不能盲重送",
+      "implementation": "W；T044–050",
+      "tasks": "W；T044–050",
+      "testIndex": "R-U partial／safe resend／撤權／conflict，R-H PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT RUN"
+      ],
+      "limitations": "真PENDING reconcile NOT RUN；不得把FAILED修權恢復當pending成功。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.6",
+      "summary": "重複點擊／雙頁籤互斥、晚到不覆新",
+      "implementation": "W／F；T045–053",
+      "tasks": "W／F；T045–053",
+      "testIndex": "R-H雙teacher／F-T／E-R late A success-error PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "真多老師競爭／晚到回覆NOT VERIFIED；離線／E2E有證據。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.7",
+      "summary": "權限／配額／網路保留活動、已拒絕vs未知",
+      "implementation": "A／W／F；T006–010／048–052",
+      "tasks": "A／W／F；T006–010／048–052",
+      "testIndex": "U-A statuses／R-U safe new op／E-R401 PASS",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "USER_REPORTED_LIVE_PASS",
+        "DEVIATION_ACCEPTED",
+        "NOT VERIFIED",
+        "NOT RUN",
+        "FAIL"
+      ],
+      "limitations": "T058-2/3/4真實安全行為PASS；保護專屬歸因NOT VERIFIED及原protected FAIL，真逾時NOT RUN。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN",
+        "LIVE",
+        "DA"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    },
+    {
+      "id": "US4.8",
+      "summary": "新活動已填來源拒絕、提示還原／複製",
+      "implementation": "P／F；T020／059／061",
+      "tasks": "P／F；T020／059／061",
+      "testIndex": "REUSE＋E-P提示PASS；無自動還原",
+      "evidenceTypes": [
+        "OFFLINE_TEST_PASS",
+        "E2E_TEST_PASS",
+        "USER_REPORTED_MANUAL_PASS",
+        "NOT VERIFIED"
+      ],
+      "limitations": "安全新副本換場人工PASS；已填來源拒絕／人工還原個別人工步驟NOT VERIFIED。",
+      "evidenceLocations": [
+        "OFF",
+        "E2E",
+        "MAN"
+      ],
+      "diagrams": [
+        "002-component",
+        "002-class",
+        "002-sequence"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T001",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "核對本 feature／分支與已接受三圖，建立新增 tests/records/002-google-sheets-integration/baseline.md，列出 001 受保護文件／歷史圖表、既有測試保留或遷移對照及當次版本；不得改寫舊 PASS，不因已有未提交 002 文件而刪除它們。"
+    },
+    {
+      "id": "T002",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "在後續實作階段修改 backend/package.json、backend/package-lock.json，僅新增 google-auth-library，依 research R2 核對 Node >=24 <25 engines 並鎖定精確版；不新增 googleapis／Drive／前端 Google SDK，於新增 tests/records/002-google-sheets-integration/environment.md 記相容性與安裝實況，不記機敏值。（依 T001）"
+    },
+    {
+      "id": "T003",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[人工前置] 由使用者依 specs/002-google-sheets-integration/quickstart.md 設定 Cloud 專案、啟用 Sheets API、建立 Service Account、依校方政策將 key 放 repository 外並限制 ACL；只在新增 tests/records/002-google-sheets-integration/environment.md 記完成／BLOCKED／NOT RUN，不記 key、Token、密碼或實際 credential 路徑。代理不得代建憑證；不需給 Cloud Owner／Editor 或網域委派。（依 T001；與 T002 同檔須串行記錄）"
+    },
+    {
+      "id": "T004",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[人工前置] 由使用者提供不同 spreadsheetId 的專用 A/B 表，各自分享給服務帳號 Editor；配置不同位置、跨表／hidden GRID、merge master、非答案公式／rich text 與整格格式，另備錯誤／保護案例。新增 tests/records/002-google-sheets-integration/live-prerequisites.md 只記 A/B 代稱及權限確認，不提交真實網址／ID；無環境時保持 BLOCKED，不阻塞 fake 開發。（live 前依 T003）"
+    },
+    {
+      "id": "T005",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "建立新增 tests/records/002-google-sheets-integration/README.md，定義 unit／adapter fake／HTTP-Socket integration fake／E2E fake／live／manual／diagram 的證據欄位：日期、版本、命令或步驟、預期、實際、PASS／FAIL／NOT RUN／BLOCKED、遮蔽證據；明列舊 001 紀錄唯讀且不能替代 002。（依 T001）"
+    },
+    {
+      "id": "T006",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "[P] 新增 backend/tests/unit/sheets-access.test.js，先測 scope／固定 host／redirect:error、fields 完整性、30 秒讀取最多 3 次與 1／2 秒 jitter／Retry-After 預算、200 秒本機寫逾時、400／401／403／404／429 完整拒絕及 5xx／斷流未知；斷言每 write attempt 僅一次傳輸、取 Token 失敗零寫且沒有 auth replay。使用注入 transport／clock，不呼叫 Google。（依 T002、T005） 補充 A2：依 research R3 測 monotonic 總預算100,000ms（含取Token／body／等待）、每次 min(30,000ms,剩餘)、最多3次、jitter整數0–250ms；Retry-After delta／HTTP-date／無效／過去／超預算、deadline晚到忽略與寫入不套用讀重試，使用可注入時鐘／RNG精確斷言。"
+    },
+    {
+      "id": "T007",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "[P] 新增 backend/tests/unit/google-config.test.js，測 repo 外路徑、service_account 型別、可信 token_uri、憑證缺失安全錯誤、前端不可取得秘密；無憑證仍可健康檢查與測其他 quiz 功能。（依 T002、T005）"
+    },
+    {
+      "id": "T008",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "修改 backend/src/config.js、backend/.env.example 及必要的根目錄 .gitignore：只接受後端 GOOGLE_APPLICATION_CREDENTIALS 路徑、校驗 repository 外與 service_account／token_uri；保留 ADMIN_PASSWORD／localhost，範例空值且不引入自動讀前端 env。認證失敗於 Sheets 功能報安全錯誤，不強制無憑證單元測試全失敗。（依 T007）"
+    },
+    {
+      "id": "T009",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "修改 backend/src/api/errors.js，加入 contracts/http.md 全部 Sheets／操作／410 錯誤及繁中訊息、正確 HTTP mapping；既有 error envelope／亂數 requestId 保留，清除 Google 原始 body／config／headers／stack／Token，不把 Google 401 當老師 Session 失效。（依 T006、T007）"
+    },
+    {
+      "id": "T010",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "新增 backend/src/services/sheets-access.js 的 Service Account Token／getSource／verify 邊界：GoogleAuth 僅取 Token，scope 僅 spreadsheets；native fetch 固定官方 URL、禁止 redirect、不 fetch 老師網址；依 Sheets 合約讀全部必要 metadata／sparse cells／保護參照，必要欄位缺漏報協定錯誤，權限不可見為 UNKNOWN。（依 T006、T008、T009）"
+    },
+    {
+      "id": "T011",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "在 backend/src/services/sheets-access.js 實作 writeValues：全動態單格 updateCells、stringValue、fields=userEnteredValue；無 fills 零寫、一次 batch、body >2 MiB 全拒絕、不分批／清格／寫格式；回 APPLIED／KNOWN_REJECTED／UNKNOWN，attempt 一次 fetch 無背景重試，abort／settle 不冒稱遠端取消。（依 T010；此為 Access 能力，不是回填 worker）"
+    },
+    {
+      "id": "T012",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "新增 tests/fixtures/google-sheets/sources.js 與 backend/tests/helpers/fake-sheets-access.js：提供 A/B 合成稀疏資料、sheetId=0、hidden／merge／非 GRID、錯標記／runs／保護資訊，並可控制讀取、apply 後遺失回覆、延遲寫、讀回失敗及呼叫次數；fixture 不含真實 ID／key，fake 不作 live 證據。（依 T011；fixture 介面遵循 Access 合約）"
+    },
+    {
+      "id": "T013",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "修改 backend/src/app.js 注入 sheetsAccess 並保留現有 createApp 測試組裝，修改 backend/tests/helpers/runtime.js 讓離線測試明確注入 fake、不意外存取真 Google；不新增公共 endpoint 配置、不改 auth／dispatcher／Socket 排序責任。（依 T011、T012） 補充 C1：修改 backend/tests/helpers/quiz.js，將舊 worksheetId／worksheetName 最小物件換成有效的合成 GuidedNotesSource／sheetId／rowIndex／columnIndex 基準，明確注入 fake；保留同步純 domain quizFixture 及原三組／Session assertions，不以保留 ActivityService Excel import 草稿滿足測試；走準備服務的 fixture 必須先 setGroups 再 loadSource。"
+    },
+    {
+      "id": "T014",
+      "complete": true,
+      "requirements": [
+        "FR-002",
+        "FR-003",
+        "FR-007",
+        "FR-013",
+        "FR-018",
+        "FR-019"
+      ],
+      "description": "執行 T006／T007 的單元與 Access 契約測試，確認無隱藏重送／機敏洩漏；將實際命令、結果與未完成環境記入新增 tests/records/002-google-sheets-integration/foundation.md。未全通過不得開始依賴 Access 的回填實作。（依 T008–T013）"
+    },
+    {
+      "id": "T015",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[P] [US1] 新增 backend/tests/unit/sheets-source-parser.test.js，測 HTTPS／精確 host／合法 ID／禁短網址與發佈連結／gid 不限範圍、GRID hidden／非 GRID、sparse offsets／空格、Q0／Q01／q1／缺號／重複／混字／公式／多標記、merge master、safe integer、textFormatRuns／chipRuns 拒絕及精確位置提示。（依 T014）"
+    },
+    {
+      "id": "T016",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[P] [US1] 修改 backend/tests/integration/preparation-http.test.js，將正式準備改為 JSON URL 契約；覆蓋 groups PUT、Notes GET、未知欄位／multipart 拒絕、驗權先於 Google、無效組數零讀、busy／同時改組數、失敗釋放／保留組數、DENIED／UNKNOWN、完整來源一次 commit／建立後不可換。測學生無來源欄位。（依 T014） 補充 C1：同步修改 backend/tests/unit/foundation.test.js 的舊 multipart FILE_UNREADABLE 契約，改驗新版 JSON 輸入／退役 multipart 的安全拒絕與狀態不變，保留亂數requestId、遮蔽錯誤、Origin、密碼／角色／Session及同步dispatcher assertions，不恢復舊正式匯入。"
+    },
+    {
+      "id": "T017",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[P] [US1] 新增 frontend/tests/guided-notes.test.js 的來源 API／錯誤／過期回覆測試，並修改 tests/e2e/teacher-preparation.spec.js 及 tests/e2e/start-backend.mjs 使用明確 fake DI，測網址取代選檔、未知權限警告、位置錯誤及重試；fake 僅測 UI，不註記真表通過。（依 T014）"
+    },
+    {
+      "id": "T018",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 新增 backend/src/models/guided-notes-source.js，逐字落實 data-model 的 Source 欄位：`spreadsheetId: nonempty string；canonicalUrl: string；title: string；supportedSheets: Map<sheetId,SheetBaseline>；excludedSheets: array；placeholderLocations: Map<questionNumber,PlaceholderLocation>；permissionAssessment: UNKNOWN / NO_KNOWN_DENIAL；baselineCellValues: immutable sparse map`；`一 Activity 一份；沒有 Google Token／私鑰`，`DENIED 只存在於失敗結果，不建 Activity`。SheetBaseline：`sheetId: nonnegative safe integer（0 合法）；title: string；index: nonnegative integer；sheetType: GRID；hidden: boolean；rowCount/columnCount: positive safe integer；merges: normalized GridRange[]`；`grid dimensions／merges 變更則衝突`，title／index 僅顯示。（依 T015）"
+    },
+    {
+      "id": "T019",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 新增 backend/src/models/placeholder-location.js，逐字落實 `questionNumber: positive safe integer；sheetId: nonnegative safe integer；sheetTitle: string；rowIndex/columnIndex: nonnegative safe integer；cellAddress: derived string；originalPlaceholder: exact string；mergeRange: GridRange or null`；`regex 整格 {{Qn}}、Q1..QN 唯一連續；合併格只取左上 master。拒絕 formulaValue 及含 textFormatRuns／chipRuns 的標記格；一般 userEnteredFormat 保留`。（依 T018）"
+    },
+    {
+      "id": "T020",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 修改 backend/src/services/guided-notes-service.js，新增 Sheets source 解析入口，保留既有標記辨識規則及歷史 Excel helper 測試所需入口；依 HTTP 合約安全解析／canonicalize URL，只用 userEnteredValue.stringValue、計入 startRow/startColumn／holes、掃全部支援 GRID 含 hidden、列 excluded，不固定題數／表名／ID／座標；產生不可變稀疏基準及 T018／T019 模型。（依 T019）"
+    },
+    {
+      "id": "T021",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 在 backend/src/services/guided-notes-service.js 實作非破壞性權限評估：強制 protectedRange requestingUserCanEdit:false 命中答案格為 DENIED，扣除 unprotectedRanges、解析 namedRange／table 引用；不可解析或資訊不足為 UNKNOWN，warningOnly 不當拒絕、無保護不證明可編輯，不查 editors 猜權限、不寫測試值；權限與 runs 負面來源零 commit。（依 T020）"
+    },
+    {
+      "id": "T022",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 修改 backend/src/store/runtime-store.js、backend/src/services/activity-service.js、backend/src/models/activity.js，準備僅 `groupCount: positive safe integer | null`、`busy: boolean`；有效組數先驗與 ownership 互斥、I/O 在 dispatcher 外，全部成功後短同步一次建 source／questions／Q1 WAITING，finally 安全釋放。不保存 validated document 草稿；保留有效組數、禁止活動後改來源／組數，原 quiz view 不混 Notes 狀態。（依 T016、T021）"
+    },
+    {
+      "id": "T023",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 修改 backend/src/api/preparation-routes.js、backend/src/api/guided-notes-routes.js，接 PUT groups／POST JSON spreadsheetUrl／GET NotesView；逐次驗老師與 activity，拒絕未知欄位與任意 ID／座標，201 僅完全成功；NotesView 含 excluded 與 UNKNOWN 警告，與 quiz revision 分離。（依 T022）"
+    },
+    {
+      "id": "T024",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 修改 frontend/src/services/api.js、新增 frontend/src/services/guided-notes.js，加入 JSON 匯入與老師 Notes 查詢，沿用 session 世代保護、拒收舊活動回覆；Google 錯誤不清本機老師身分，無憑證／Google SDK 進前端。（依 T023）"
+    },
+    {
+      "id": "T025",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 修改 frontend/src/pages/TeacherPage.jsx，以網址／來源名稱／題數／excluded／權限警告取代正式選檔流程，未設有效組數不讀、busy 禁變更、錯誤可重試、建立後鎖定；不更動學生 UI／四階段流程，不要求 Google 登入。（依 T024）"
+    },
+    {
+      "id": "T026",
+      "complete": true,
+      "requirements": [
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-020"
+      ],
+      "description": "[US1] 執行 T015–T017 與來源負面矩陣、檢查兩個 fake 來源無 ID／位置沿用、確認沒有半場活動；新增 tests/records/002-google-sheets-integration/us1-fake.md，記 unit／integration／E2E 分別結果。US1 可獨立展示準備，不能宣稱整個 feature 完成。（依 T025） 本次執行亦包含 backend/tests/unit/foundation.test.js；不得以舊 multipart 預期失敗為理由略過原安全驗證。"
+    },
+    {
+      "id": "T027",
+      "complete": true,
+      "requirements": [
+        "FR-008",
+        "SC-005"
+      ],
+      "description": "[P] [US2] 修改 backend/tests/integration/quiz-http.test.js、backend/tests/integration/activity-lifecycle.test.js，準備 fixture 改 Sheets fake 並保留原 assertions；驗三組並發、空白／重複、submit-close 雙順序、下一題 WAITING、末題 COMPLETED、閉題不可重開與最小 receiveRank。（依 T026） 補充 C1：修改 backend/tests/integration/group-session-http.test.js，移除 readFile／XLSX與先import再setGroups前提，注入 fake Sheets、先設定組數再依新版來源流程完整建立；保留競爭claim、身分恢復、跨組綁定拒絕、四階段晚加入、own-only投影、stale／forged／missing Session assertions。"
+    },
+    {
+      "id": "T028",
+      "complete": true,
+      "requirements": [
+        "FR-008",
+        "SC-005"
+      ],
+      "description": "[P] [US2] 修改 backend/tests/integration/quiz-socket-isolation.test.js、backend/tests/integration/restart-process.test.js，驗其他組收到零額外事件／版本側通道、每身分投影、四階段 late join／重連、多頁籤及重啟清空；記錄 Google 延遲不改 quiz stateRevision／studentViewRevision。（依 T026）"
+    },
+    {
+      "id": "T029",
+      "complete": true,
+      "requirements": [
+        "FR-008",
+        "SC-005"
+      ],
+      "description": "[P] [US2] 修改 tests/e2e/lifecycle-fixture.js、tests/e2e/full-activity.spec.js、tests/e2e/student-identity.spec.js、tests/e2e/single-question.spec.js、tests/e2e/realtime-lifecycle.spec.js、tests/e2e/convergence-regressions.spec.js，將正式檔案準備步驟改 URL fake，保留原身分／phase／同步／隔離判準，測正常本機 <=2 秒與不自動重送。（依 T026）"
+    },
+    {
+      "id": "T030",
+      "complete": true,
+      "requirements": [
+        "FR-008",
+        "SC-005"
+      ],
+      "description": "[US2] 新增 backend/tests/integration/sheets-quiz-independence.test.js，注入延遲／失敗的 Sheets read／write 介面，驗 command-dispatcher 同步裁定不 await 雲端、開始／提交／閉題不呼叫 Google；若失敗僅修 backend/src/services/activity-service.js 與 backend/src/app.js 的新整合邊界，不改 question-service.js／submission-service.js 的既有規則。（依 T027、T028；US3 完成後補跑真 worker 並行分支於 T054）"
+    },
+    {
+      "id": "T031",
+      "complete": true,
+      "requirements": [
+        "FR-008",
+        "SC-005"
+      ],
+      "description": "[US2] 執行 T027–T030、backend/tests/unit/submission-order.test.js、frontend/tests/realtime.test.js 及 T029 E2E，於新增 tests/records/002-google-sheets-integration/us2-regression.md 記實際耗時／證據與保留／遷移差異；不沿用舊 73／7／14 數字當新 PASS。（依 T030、T029） 同時執行 backend/tests/integration/group-session-http.test.js、backend/tests/unit/foundation.test.js，確認 T013 的 backend/tests/helpers/quiz.js 所有既有使用者無回歸。"
+    },
+    {
+      "id": "T032",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[P] [US3] 新增 backend/tests/unit/writeback-snapshot.test.js，驗閉題最小 rank、未閉題／無人排除、複製 location／answer 不可變、close-before-snapshot／snapshot-before-close 雙序、無 fills NO_CHANGES；包含原始空白／換行／Unicode／等號／答案恰為標記。（依 T031）"
+    },
+    {
+      "id": "T033",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[P] [US3] 新增 backend/tests/integration/writeback-http.test.js，先依契約測 POST 202／NO_CHANGES 200、Notes GET／operation GET、驗權／舊活動／任意目標拒絕、busy／無 fills 零寫、2xx 後讀回方成功、未核對維持 pending，操作錯誤存在 GET 200 視圖而非誤導 generic 500。（依 T031）"
+    },
+    {
+      "id": "T034",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[P] [US3] 新增 backend/tests/unit/source-consistency.test.js，測原 sheetId／dimensions／merge／位置與非目標原值、更名重排可接受、公式比較定義、runs 新增衝突；Evidence／pending 替換先於掃標記、答案恰為其他題標記不重計、無依據同答案仍衝突、全批先驗再寫。（依 T031）"
+    },
+    {
+      "id": "T035",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 新增 backend/src/models/writeback-operation.js，實作 ClosedWinnerSnapshot：`activityId: string；sourceId: string；capturedAt: ISO time（只供記錄）；fills: immutable ordered array of {questionNumber, location copy, answerText}`，`時間不參與 rank`。Operation：`id: random UUID；activityId: string；status: enum；revision: positive integer；kind: INITIAL / RECONCILE；snapshot: ClosedWinnerSnapshot；items: Map<questionNumber,WritebackItem>；running: boolean；unresolvedAttempt: boolean；lastError: safe summary or null；attempts: array`；status 嚴格為 `PRECHECKING / WRITING / VERIFYING / PENDING_VERIFICATION / SUCCEEDED / NO_CHANGES / FAILED / CONFLICT`，與 quiz 版本分開，terminal 歷史保留。（依 T032、T033）"
+    },
+    {
+      "id": "T036",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 在 backend/src/models/writeback-operation.js 實作 Item／Attempt，逐字落實 Item `questionNumber；location；expectedText: exact string；state: NOT_WRITTEN / VERIFIED / SKIPPED_VERIFIED / CONFLICT / UNKNOWN；safeReason: nullable string`，`VERIFIED 需讀回 stringValue 精確相等且位置／格式核對`；Attempt `id: UUID；sent: boolean；transportState: NOT_SENT / IN_FLIGHT / SETTLED；remoteOutcome: NOT_SENT / KNOWN_REJECTED / APPLIED / UNKNOWN；targetQuestionNumbers: immutable array；startedAt/endedAt: nullable ISO`；`本機 settle 不自動等同遠端終止`，不存私密 request／headers／原始錯誤。（依 T035）"
+    },
+    {
+      "id": "T037",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 新增 backend/src/models/writeback-evidence.js，逐字落實 `activityId；spreadsheetId；questionNumber；sheetId／rowIndex／columnIndex；exactText: string；verifiedAt: ISO；operationId: UUID`，`只由讀回建立，可重驗更新 verifiedAt；不可跨活動沿用，重啟可清空`；修改 backend/src/store/runtime-store.js 保存 activity-scoped operations／evidence／ownership，不加持久庫。（依 T036）"
+    },
+    {
+      "id": "T038",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 新增 backend/src/services/source-consistency.js，實作 T034 的完整來源基準／全部原題／已寫位置驗證；使用本活動 Evidence／原 pending 預期替換後再查額外標記，核對精確值型別與位置／runs／權限，任一衝突停止全批未送更新，不自動移格或重綁；非目標值採保守衝突、不比較公式重算結果。（依 T034、T037）"
+    },
+    {
+      "id": "T039",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 新增 backend/src/services/writeback-coordinator.js，短同步驗權／activity／ownership 與擷取 closed winners；外部 I/O 執行完整 preflight／Access 單次 batch／全目標 verify，短同步驗 ownership 後回存。無 fills NO_CHANGES、不可表示 surrogate／>2MiB 明確拒絕、不改 Submission；2xx 不等成功、部分不報全成功。所有未知先保留原 snapshot／barrier，無 reconcile 實作前亦不能重送。（依 T038、T011；必須先有 Access）"
+    },
+    {
+      "id": "T040",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 修改 backend/src/app.js、backend/src/api/guided-notes-routes.js 組裝 coordinator 與 POST writeback／GET operation，202 與 worker 解耦、老師 HTTP 中斷不取消 worker；所有視圖只給老師。正式 export 對 teacher 回 410 EXCEL_FLOW_RETIRED，未登入／學生先驗權；保留舊 Excel helper／依賴供歷史測試。（依 T039、T033）"
+    },
+    {
+      "id": "T041",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 修改 frontend/src/services/guided-notes.js、frontend/tests/guided-notes.test.js，加入操作建立／查詢，以 activityId／operationId／operationRevision 去除過期回覆，獨立於 acceptSnapshot；POST 回覆遺失先 Notes GET 找 operation，不自動 POST 重送，操作期間每秒僅查本機 GET，terminal 停止。（依 T040） 補充 A1：依 contracts/http.md 的 currentOperationId／viewEpoch／discoveryGeneration 實作記憶體 ownership；不同 operation 不比較revision。於 frontend/tests/guided-notes.test.js 增加 A高revision晚於B成功／Notes發現、舊Notes倒序、POST遺失後晚到及Session／activity改變的測試；只有有效發現或POST能選目前ID，舊GET／錯誤不得切換操作或重啟輪詢。"
+    },
+    {
+      "id": "T042",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 修改 frontend/src/pages/TeacherPage.jsx，四個已準備階段提供手動寫回、無可填提示、逐題／成功／忙碌／失敗／待核對狀態及刷新恢復；不在 close／submit／重連觸發寫入、不增學生事件。修改 backend/tests/integration/export-http.test.js、新增 tests/e2e/google-sheets-writeback.spec.js 及調整 tests/e2e/guided-notes-export.spec.js，驗正式 XLSX 入口退役與手動寫回流程。（依 T041）"
+    },
+    {
+      "id": "T043",
+      "complete": true,
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014"
+      ],
+      "description": "[US3] 執行 T032–T034、T041–T042 測試與 Access 契約，逐格比對 fake 前後非答案公式／格式／合併及文字型別，於新增 tests/records/002-google-sheets-integration/us3-fake.md 記成功／未處理／pending。缺 US4 恢復或真表驗證時不得稱完整可交付。（依 T042）"
+    },
+    {
+      "id": "T044",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[P] [US4] 新增 backend/tests/unit/writeback-recovery.test.js，覆蓋 data-model 全 transition：首次無依據同答案衝突、有 Evidence 精確匹配略過、已寫格改值／還原標記仍衝突、pending 全目標含既有證據核對、部分吻合／標記／他值、文字答案等於標記、不可表示／超大、撤權與讀失敗。（依 T043）"
+    },
+    {
+      "id": "T045",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[P] [US4] 新增 backend/tests/integration/writeback-recovery-http.test.js，測 reconcile 契約及多老師頁籤、POST 斷線、2xx 後讀失敗、apply 後遺失回覆、舊 transport 未 settle 即使讀到答案仍 running、settle 但 remote UNKNOWN 且殘留標記只讀不重送、未知全部目標吻合後可解除屏障、舊快照不覆新結果。（依 T043）"
+    },
+    {
+      "id": "T046",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[P] [US4] 新增 tests/e2e/google-sheets-recovery.spec.js，測老師收到 busy／pending 操作 ID、刷新先查、手動核對、逐題衝突位置／原因、Google 401 不登出、無 forced overwrite 按鈕，雙頁籤無並行寫；明示 fake transport 注入，不以 browser mock 代表 Google 驗收。（依 T043） 補充 A1：受控延遲A的狀態／Notes回覆，B已成目前操作後再釋放A，驗UI仍顯示B；同時驗不會重送POST或因A的舊錯誤改變B按鈕狀態。"
+    },
+    {
+      "id": "T047",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 backend/src/services/source-consistency.js，完成原操作 pending／Evidence 優先判定及 T044 負面分支；原標記／預期答案／其他值分類必須結合位置與歷史，無紀錄不可猜成功，來源結構／非目標值／格式任一衝突全停，仍不承諾 CAS。（依 T044、T038）"
+    },
+    {
+      "id": "T048",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 backend/src/services/writeback-coordinator.js，實作同 operation 手動 reconcile：只處理 immutable 原 snapshot，先讀全部目標，不摻後來閉題；KNOWN_REJECTED／未送可安全失敗，可能送達保留 pending／unresolvedAttempt；每 activity 最多一 running 或 pending barrier，IN_FLIGHT 始終 running。（依 T045、T047）"
+    },
+    {
+      "id": "T049",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 在 backend/src/services/writeback-coordinator.js 完成 late-request 屏障與 T044／T045 全 transition；本機 settle 不是取消，原標記且舊 remote UNKNOWN 保持 pending 只讀；僅舊 attempt 已安全排除或所有舊目標已核對同一不可變答案且本機 settle 才釋放。只有可安全重送且全 preflight 通過才寫剩餘標記，不用180秒／200秒定時清鎖、回滾或背景 retry。（依 T048）"
+    },
+    {
+      "id": "T050",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 backend/src/api/guided-notes-routes.js，加入 POST /activity/guided-notes/writebacks/:operationId/reconcile，逐次驗權／activity／operation，僅 pending 或 conflict 帶 unresolvedAttempt 可核對；busy／pending／not-pending 合約完整，新 writeback 在 pending 時回原 ID，不建立新快照。（依 T049）"
+    },
+    {
+      "id": "T051",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 frontend/src/services/guided-notes.js、frontend/tests/guided-notes.test.js，支援明確手動 reconcile、canReconcile 非重送保證、401 Google 與 Session 錯誤分流、同 operation revision 防舊覆新；查詢不觸發 reconcile／Google write。（依 T050） 沿用 contracts/http.md A1 的跨operation ownership；reconcile開始前遞增viewEpoch仍綁原ID，不以較大revision跨ID接管。"
+    },
+    {
+      "id": "T052",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 frontend/src/pages/TeacherPage.jsx，加入逐題衝突／待核對原因、原操作手動核對及授權修正提示；無法安全恢復時明示保持待核對、不可重啟當取消，禁止新寫回／強制覆蓋／自動還原；不將部分核對顯示全部成功。（依 T051）"
+    },
+    {
+      "id": "T053",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 修改 backend/tests/integration/sheets-quiz-independence.test.js，接真 coordinator＋fake transport，驗寫回／核對／讀取長等待與三組 submit-close 競爭仍公平、<=2 秒本機同步且學生無雲端欄位／通知／版本改變；驗來源／operation 舊回覆不取得新 ownership。（依 T052、T030）"
+    },
+    {
+      "id": "T054",
+      "complete": true,
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-014",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018"
+      ],
+      "description": "[US4] 執行 T044–T046、T053 與 US1–US3 回歸，新增 tests/records/002-google-sheets-integration/us4-recovery-fake.md，逐分支列遠端值／本機狀態／transport 次數／barrier 是否解除；假 API 的 timeout／晚到測試清楚標 fake，不聲稱真網路已驗。（依 T053）"
+    },
+    {
+      "id": "T055",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "建立新增 backend/tests/live/google-sheets.test.js、修改 backend/package.json 新增 test:live（僅選 live 目錄），使預設 unit／integration 永不呼叫真 Google；只有 RUN_GOOGLE_LIVE_TESTS=1、repo 外 credential 與不同 GOOGLE_TEST_SHEET_A／B 齊備才能執行。缺設定明確 SKIP／NOT RUN、不可標 live PASS；開跑驗專用來源完整標記，不覆蓋衝突、不自動還原。（依 T054；T003／T004 不阻擋寫測試程式）"
+    },
+    {
+      "id": "T056",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "執行 backend／frontend 預設測試、frontend build 與 E2E fake（沿用 quickstart 命令及隔離3100／5273端口，不停止使用者活動），保留 Excel helper 歷史測試與全部 quiz 回歸；新增 tests/records/002-google-sheets-integration/automated.md，逐 suite 記實際數量／結果及測試遷移對照，不修改 tests/records 的 001 紀錄。（依 T055）"
+    },
+    {
+      "id": "T057",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[真實 API；需人工前置] 在 T003／T004 就緒後，用 test:live 對 A/B 各驗讀取、不同動態位置／hidden／merge、最小 rank 寫回、=1+2／Unicode／換行文字型別、無人／未閉題保標記、重複回填不誤判缺號、非答案公式定義／rich text／整格格式／結構不變；新增 tests/records/002-google-sheets-integration/live.md 記實際 Google 請求測試及遮蔽前後比對，不記憑證／ID／真學生資料。（依 T056、T003、T004；每次先由人工確認範本可用）"
+    },
+    {
+      "id": "T058",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[真實API＋人工權限；有限證據內部接受DA-T058-01] 依使用者2026-11-18核准的修訂標準，保存UNKNOWN警告建活動、失敗保留活動／答案／順位／Session、FAILED已結束後同活動修權明確寫回成功、撤讀權read-denied真實PASS四項證據及其原始日期／分類。已知DENIED準備拒絕與保護專屬寫拒絕NOT VERIFIED，遠端恰一次完整真實證據NOT VERIFIED；原protected MISSING／UNKNOWN FAIL及assertion不改。真實斷線／逾時／pending reconcile NOT RUN，離線證據另列。正式條件／限制／追溯見tests/records/002-google-sheets-integration/t058-negative-write.md頂部DA-T058-01及review-record.md；本勾選僅表示專案內部有限證據審查完成，不是助教接受或全部live分支PASS。（依T057；FR-006／018與全部安全要求不變）"
+    },
+    {
+      "id": "T059",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[人工驗收] 使用者依 specs/002-google-sheets-integration/quickstart.md，以老師＋三組完成兩份真表完整流程、四階段刷新／重連、手動回填／重複／衝突提示並肉眼比對原表；確認舊請求無晚到風險後才手動還原標記或複製新範本重測。新增 tests/records/002-google-sheets-integration/manual.md 記使用者實際回報、日期／步驟／預期／實際／PASS 或未執行；AI 不代填人工通過。（依 T058）"
+    },
+    {
+      "id": "T060",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "檢查 backend/src/config.js、backend/src/services/sheets-access.js、frontend/src/services/guided-notes.js 及全部候選提交產物的秘密／錯誤洩漏、前端 bundle／env 邊界、未知目標與角色隔離；新增 tests/records/002-google-sheets-integration/security.md 記遮蔽掃描方法及結果，不收錄命中的秘密原文。若發現真憑證，停止發布並由持有人撤銷，不僅改 Git。（依 T056，最終再納入 T057–T059 證據）"
+    },
+    {
+      "id": "T061",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "更新 README.md 與 specs/002-google-sheets-integration/quickstart.md，使環境變數／實際安裝版／啟動／test:live／兩表分享／錯誤／同活動證據與新活動範本重用規則吻合實作；明示 A-04 無遠端鎖、未知永久 pending、安全重用前先核對舊請求、不自動還原；不改 001 文件。（依 T059、T060；未實測項仍明示）"
+    },
+    {
+      "id": "T062",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "逐責任／實體／時序對照實作與 diagrams/002-component.puml、diagrams/002-class.puml、diagrams/002-sequence.puml 及 PNG，新增 tests/records/002-google-sheets-integration/diagram-consistency.md；必要修圖僅限已確認需求且用既有 PlantUML CLI 重產PNG／檢視／記錄命令結果與雜湊。若涉及需求變更先停止回人工／跨組審查，不改001圖，不用可渲染代替一致性。（依 T061；原 Tasks 產生時未改圖，後續 Analyze 修訂已更新 sequence 並重產 PNG，見 review-record.md）"
+    },
+    {
+      "id": "T063",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "於新增 tests/records/002-google-sheets-integration/final-acceptance.md 整理 FR-001–021／SC-001–007 到任務／測試／實際證據的矩陣及尚未通過項，核對001／憲章無意外差異，確認沒有無關新功能；未完成 live／manual 或重大失敗不得標整合完成，必要修正後重跑受影響測試。（依 T056–T062）"
+    },
+    {
+      "id": "T064",
+      "complete": true,
+      "requirements": [
+        "FR-021",
+        "SC-007"
+      ],
+      "description": "[人工最終審查] 向使用者提交 specs/002-google-sheets-integration/review-record.md 的實作／自動／真表／人工／圖表結果與 tests/records/002-google-sheets-integration/final-acceptance.md，據真實回覆記錄最終接受或待修正；無使用者回覆不得自行核准，不含 commit／push／公開部署。（依 T063）"
+    }
+  ],
+  "evidenceRowCounts": {
+    "OFFLINE_TEST_PASS": 52,
+    "E2E_TEST_PASS": 48,
+    "USER_REPORTED_MANUAL_PASS": 35,
+    "USER_REPORTED_LIVE_PASS": 26,
+    "NOT VERIFIED": 31,
+    "DEVIATION_ACCEPTED": 5,
+    "FAIL": 5,
+    "NOT RUN": 6,
+    "USER_APPROVED_FINAL_ACCEPTANCE": 2
+  },
+  "maintenanceUpdate": {
+    "date": "2026-11-19",
+    "scope": "Separately authorized full Excel retirement before T064; original 64 task descriptions/results remain historical",
+    "record": "excel-retirement.md",
+    "currentResults": {
+      "backend": "138/138 OFFLINE_TEST_PASS",
+      "frontend": "15/15 OFFLINE_TEST_PASS",
+      "e2e": "21/21 E2E_TEST_PASS",
+      "frontendBuild": "PASS",
+      "backendBuild": "N/A; syntax/module-load/isolated smoke PASS"
+    },
+    "retiredTestReferences": {
+      "backend/tests/unit/guided-notes-import.test.js": "backend/tests/unit/sheets-source-parser.test.js",
+      "backend/tests/unit/guided-notes-export.test.js": "backend/tests/unit/writeback-snapshot.test.js + integration/writeback-http.test.js + source-consistency/recovery tests",
+      "frontend/src/services/download.js": "frontend/tests/realtime.test.js uses current api(/activity)",
+      "backend/tests/helpers/export.js": "backend/tests/helpers/quiz.js Sheets fixtures"
+    },
+    "taskCount": 64,
+    "completedTasks": 63,
+    "T064": "PENDING",
+    "unchangedEvidence": "DA-T058-01, original protected FAIL, NOT VERIFIED/NOT RUN, T057-T059 user evidence"
+  },
+  "finalAcceptance": {
+    "confirmationDate": "2026-11-19",
+    "status": "USER_APPROVED_FINAL_ACCEPTANCE",
+    "completedTasks": 64,
+    "totalTasks": 64,
+    "FINAL_ACCEPTED": true,
+    "scope": "Project internal only; no TA/third-party acceptance, staging, commit, push or publication authorization",
+    "priorT063Rows": [
+      {
+        "id": "FR-021",
+        "summary": "分層證據／兩真表／人工／三圖",
+        "implementation": "分層證據／兩真表／人工／三圖",
+        "tasks": "T005／014／026／031／043／054–064",
+        "testIndex": "automated.md、diagram-consistency.md與全部紀錄存在",
+        "evidenceTypes": [
+          "NOT RUN"
+        ],
+        "limitations": "T064最終人工接受NOT RUN；只有追溯已建，不宣稱Feature已最終接受。",
+        "evidenceLocations": [
+          "DOC"
+        ],
+        "diagrams": [
+          "002-component",
+          "002-class",
+          "002-sequence"
+        ]
+      },
+      {
+        "id": "SC-007",
+        "summary": "實作完成前保存自動與人工兩類實際證據、兩份授權來源實測與三圖逐項核對；未執行項目 100% 標未執行或受阻。",
+        "implementation": "紀錄／三圖／T064關卡",
+        "tasks": "T055–064，各分類紀錄及三圖",
+        "testIndex": "T055–064，各分類紀錄及三圖",
+        "evidenceTypes": [
+          "NOT RUN"
+        ],
+        "limitations": "T064最終接受NOT RUN；完整整合尚不宣稱完成，所有未驗／失敗仍保留。",
+        "evidenceLocations": [
+          "DOC"
+        ],
+        "diagrams": [
+          "002-component",
+          "002-class",
+          "002-sequence"
+        ]
+      }
+    ],
+    "priorT064Complete": false,
+    "maintenanceUpdateIsHistorical": true,
+    "evidenceLimitsUnchanged": true
+  }
+}

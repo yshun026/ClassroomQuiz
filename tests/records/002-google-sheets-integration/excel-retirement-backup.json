@@ -1,0 +1,8 @@
+{
+  "verifiedFiles": 300,
+  "manifestSha256": "07dc7c5cf381b7418b38a0c5d3666dd46bfd4d97cd8028198c5f4c3f691fc054",
+  "containsCredentials": false,
+  "localBackendListeners": [],
+  "scope": "all nonignored tracked and untracked candidate files, lockfiles, staged/unstaged state; no .git mutation",
+  "backupReference": "External temporary backup directory provided in assistant completion; not a Git candidate"
+}

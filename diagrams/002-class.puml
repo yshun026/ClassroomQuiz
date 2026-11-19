@@ -1,0 +1,125 @@
+@startuml
+title Feature 002 - Domain and Logical Responsibilities (DRAFT)
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+class Activity {
+  id / phase / currentQuestionNumber
+  teacher stateRevision
+}
+class Question {
+  number / started / closed
+}
+class Submission {
+  groupNumber / answerText / receiveRank
+}
+class Group
+class Session {
+  role / binding
+  studentViewRevision
+}
+class GuidedNotesSource {
+  spreadsheet identity / title
+  supported and excluded sheets
+  imported structure baseline
+  write permission confirmation status (not a guarantee)
+}
+class PlaceholderLocation {
+  questionNumber / stable sheet identity
+  sheet title / row / column / address
+  originalPlaceholder / structure checks
+}
+class ClosedWinnerSnapshot <<immutable>> {
+  activityId / source identity
+  closed winner text + copied locations
+}
+class WritebackOperation {
+  original snapshot / per-target expected text
+  running / pending verification
+  verified / failed / conflict
+}
+class WritebackEvidence {
+  source / location / exact text
+  verified for this activity
+}
+class GuidedNotesService {
+  validateSourceAndPlaceholders()
+}
+class WritebackCoordinator {
+  captureClosedWinners()
+  preflightAllTargets()
+  reconcileOriginalOperation()
+  verifyWrittenValues()
+}
+class SheetsAccess {
+  readAuthorizedSource()
+  writeOnlyEligibleCellValues()
+}
+class AuthorizationService
+class ActivityService
+class SubmissionService
+class SynchronizationService
+class RuntimeStore
+Activity "1" *-- "1..*" Question
+Activity "1" *-- "1..*" Group
+Question "1" *-- "0..*" Submission
+Group "1" -- "0..*" Submission
+Group "0..1" -- "0..1" Session : student binding
+Activity "1" *-- "1" GuidedNotesSource
+GuidedNotesSource "1" *-- "1..*" PlaceholderLocation
+Question "1" --> "1" PlaceholderLocation
+Activity "1" *-- "0..*" WritebackOperation
+Activity "1" *-- "0..*" WritebackEvidence
+WritebackOperation "1" *-- "1" ClosedWinnerSnapshot
+WritebackCoordinator ..> AuthorizationService
+WritebackCoordinator ..> RuntimeStore
+WritebackCoordinator ..> SheetsAccess
+WritebackCoordinator ..> ClosedWinnerSnapshot
+WritebackCoordinator ..> WritebackEvidence : structure / repeated-write checks
+WritebackCoordinator ..> WritebackOperation : pending reconciliation
+GuidedNotesService ..> SheetsAccess
+GuidedNotesService ..> GuidedNotesSource
+GuidedNotesService ..> PlaceholderLocation
+ActivityService ..> GuidedNotesService
+ActivityService ..> RuntimeStore
+SubmissionService ..> RuntimeStore
+SubmissionService ..> AuthorizationService
+SynchronizationService ..> RuntimeStore
+SynchronizationService ..> AuthorizationService
+note bottom of PlaceholderLocation
+  Import: whole-cell literal {{Q1}}..{{QN}}, unique and contiguous.
+  Merged master only; formula results are not markers.
+  Reject marker cells with partial-character formatting.
+  No hardcoded spreadsheet or cell identities.
+  Later checks accept recorded answer replacements using
+  this activity's evidence / pending operation + imported mapping.
+end note
+note bottom of ActivityService
+  Valid groups + complete source validation before one commit.
+  No validated-source draft or additional draft state.
+  Known non-editable source / answer cells: no activity commit.
+  Unknown write permission: allow valid source with teacher warning.
+  Check permissions without test writes.
+end note
+note bottom of WritebackOperation
+  Logical operation status is NOT an Activity phase.
+  At most one running/pending operation per activity.
+  Unknown result keeps original snapshot for reconciliation.
+  Matching text alone is not prior-success evidence.
+end note
+note bottom of Submission
+  Existing quiz rules unchanged: server rank, one per group.
+  Closed winner = minimum rank, no correctness check.
+end note
+note bottom of SheetsAccess
+  Backend Service Account; credentials outside repository.
+  Preflight + write is not a remote compare-and-set lock.
+  Only target values change; other content/format preserved.
+  Whole-cell styles and non-answer rich text remain intact.
+end note
+legend bottom
+  Logical entities, not implementation signatures or SDK choices.
+  Runtime operation/evidence may clear on restart; remote values remain.
+  Prior Specify / cross-group confirmation retained: 2026-11-18.
+  Clarify integrated version approved by user: 2026-11-18.
+endlegend
+@enduml

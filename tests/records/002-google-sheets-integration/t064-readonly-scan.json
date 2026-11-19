@@ -1,0 +1,460 @@
+{
+  "reviewDate": "2026-11-19",
+  "scope": "nonignored tracked/untracked candidates, both diff summaries, differing index blobs, XLSX XML/PNG text metadata; no private filename opened; no real API",
+  "counts": {
+    "buffers": 334,
+    "workingFiles": 298,
+    "pngTextChunks": 12,
+    "archiveEntries": 365,
+    "UNSTAGED_DIFFBytes": 141127,
+    "STAGED_DIFFBytes": 0,
+    "differingIndexFiles": 36,
+    "stagedFiles": 0,
+    "modifiedTracked": 36,
+    "untrackedFiles": 126,
+    "trackedPaths": 172,
+    "currentBundleFiles": 3,
+    "bundleFilesScanned": 3
+  },
+  "findings": [
+    {
+      "file": "backend/tests/integration/group-session-http.test.js",
+      "line": 7,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "95509595b6bec619f13466a78152c71e128e67529e3a8fea7e046b06692ddceb"
+    },
+    {
+      "file": "backend/tests/integration/group-session-http.test.js",
+      "line": 11,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "95509595b6bec619f13466a78152c71e128e67529e3a8fea7e046b06692ddceb"
+    },
+    {
+      "file": "backend/tests/integration/preparation-http.test.js",
+      "line": 11,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "7458685459c79bd74142a69169d0b9d3c05d58983a462baacbc40aa769c211d5"
+    },
+    {
+      "file": "backend/tests/integration/preparation-http.test.js",
+      "line": 12,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "7458685459c79bd74142a69169d0b9d3c05d58983a462baacbc40aa769c211d5"
+    },
+    {
+      "file": "backend/tests/integration/preparation-http.test.js",
+      "line": 17,
+      "rule": "literal-password",
+      "classification": "synthetic-test-literal"
+    },
+    {
+      "file": "backend/tests/unit/foundation.test.js",
+      "line": 27,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "68ca891baa9262f44444d485138c7fe9f12a1ec55a9669331eab9a336fe74f49"
+    },
+    {
+      "file": "backend/tests/unit/foundation.test.js",
+      "line": 33,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "68ca891baa9262f44444d485138c7fe9f12a1ec55a9669331eab9a336fe74f49"
+    },
+    {
+      "file": "backend/tests/unit/foundation.test.js",
+      "line": 33,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "68ca891baa9262f44444d485138c7fe9f12a1ec55a9669331eab9a336fe74f49"
+    },
+    {
+      "file": "backend/tests/unit/foundation.test.js",
+      "line": 34,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "68ca891baa9262f44444d485138c7fe9f12a1ec55a9669331eab9a336fe74f49"
+    },
+    {
+      "file": "backend/tests/unit/google-config.test.js",
+      "line": 18,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "backend/tests/unit/google-config.test.js",
+      "line": 55,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "backend/tests/unit/google-config.test.js",
+      "line": 12,
+      "rule": "service-account-address",
+      "classification": "reviewed-synthetic-service-identity",
+      "reviewReason": "Synthetic credential-loader fixture, no real credentials or Google access",
+      "reviewedSha256": "b37d9b9c2218f5ecae5e53697d0f755097bd643092bd29ca2fb7eefa6a4cd0fb"
+    },
+    {
+      "file": "tests/e2e/student-identity.spec.js",
+      "line": 12,
+      "rule": "literal-password",
+      "classification": "reviewed-local-test-literal",
+      "reviewReason": "Isolated test createApp/loadConfig or synthetic login, not runtime environment credential",
+      "reviewedSha256": "98bdb993c55e655c78d3761779635dbe912bb94cf9d566a5790df68cebd9d3c0"
+    },
+    {
+      "file": "tests/fixtures/guided-notes/corrupt.xlsx",
+      "rule": "invalid-xlsx-archive",
+      "classification": "reviewed-invalid-fixture"
+    },
+    {
+      "file": "INDEX:backend/tests/integration/group-session-http.test.js",
+      "line": 7,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/integration/group-session-http.test.js",
+      "line": 11,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/integration/preparation-http.test.js",
+      "line": 8,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/integration/preparation-http.test.js",
+      "line": 8,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/integration/preparation-http.test.js",
+      "line": 9,
+      "rule": "literal-password",
+      "classification": "synthetic-test-literal"
+    },
+    {
+      "file": "INDEX:backend/tests/unit/foundation.test.js",
+      "line": 27,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/unit/foundation.test.js",
+      "line": 33,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/unit/foundation.test.js",
+      "line": 33,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:backend/tests/unit/foundation.test.js",
+      "line": 34,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    },
+    {
+      "file": "INDEX:tests/e2e/student-identity.spec.js",
+      "line": 11,
+      "rule": "literal-password",
+      "classification": "reviewed-exact-blob-nonsecret"
+    }
+  ],
+  "reviewRequired": 0,
+  "workbooks": [
+    {
+      "file": "outputs/classroomquiz-valid-notes/ClassroomQuiz_valid.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/broken.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/corrupt.xlsx",
+      "tracked": true,
+      "validZip": false,
+      "piiFieldIndicators": 0,
+      "entries": 0,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/duplicate.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 11,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/empty.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/fidelity.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/formula.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/gap.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/leading.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/lowercase.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/merged.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/mixed.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/single-question.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/space.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/valid-a.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/valid-b.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 11,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/fixtures/guided-notes/zero.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-full-activity/full-activity-1.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-full-activity/full-activity-2.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-legacy-convergence/escape-answer.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-legacy-export/answering.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-legacy-export/completed.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-legacy-export/results.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/002-google-sheets-integration/us2-legacy-export/waiting.xlsx",
+      "tracked": false,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/convergence/escape-answer.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 10,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/final/full-activity-1.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/final/full-activity-2.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/us5/answering.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/us5/completed.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/us5/multi-sheet.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 11,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/us5/results.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    },
+    {
+      "file": "tests/records/us5/waiting.xlsx",
+      "tracked": true,
+      "validZip": true,
+      "piiFieldIndicators": 0,
+      "entries": 14,
+      "externalLinks": 0
+    }
+  ],
+  "limitations": [
+    "No private credential reads",
+    "Current frontend dist may be absent; no rebuild",
+    "PII indicators are heuristic; not a guarantee",
+    "PNG pixel contents not newly inspected in this scan",
+    "Existing T060 record retained unchanged"
+  ],
+  "ignoreRulesSyntheticChecks": {
+    "cases": 7,
+    "passed": 7,
+    "note": "No actual private file opened; .env.example intentionally versioned"
+  },
+  "protectedManifest": {
+    "checked": 55,
+    "mismatches": []
+  },
+  "t062DiagramHashesMatch": true
+}

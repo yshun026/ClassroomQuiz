@@ -4,11 +4,11 @@ import request from 'supertest';
 import {createServer} from 'node:http';
 import {io as client} from 'socket.io-client';
 import {setTimeout as delay} from 'node:timers/promises';
-import {quizFixture,bearer} from '../helpers/quiz.js';
+import {preparedQuizFixture as quizFixture,bearer} from '../helpers/quiz.js';
 import {attachRealtime} from '../../src/realtime/socket-server.js';
 
 test('three questions advance only from RESULTS; preserve history, reject stale commands and final next',async()=>{
- const f=quizFixture(3),api=request(f.app),t=bearer(f.teacher),s=bearer(f.students[0]);
+ const f=await quizFixture(3),api=request(f.app),t=bearer(f.teacher),s=bearer(f.students[0]);
  const command=(op,number)=>api.post('/api/activity/questions/'+op).set(t).send({...f.body,questionNumber:number});
  for(let n=1;n<=3;n++){
   const revision=f.c.store.activity.stateRevision;
@@ -29,7 +29,7 @@ test('three questions advance only from RESULTS; preserve history, reject stale 
 });
 
 test('reauthenticated reconnect restores four phases without revision changes or observer side channels',async()=>{
- const f=quizFixture(3),api=request(f.app),server=createServer(f.app),io=attachRealtime(server,f.c),sockets=[];
+ const f=await quizFixture(3),api=request(f.app),server=createServer(f.app),io=attachRealtime(server,f.c),sockets=[];
  await new Promise(r=>server.listen(0,'localhost',r));
  async function connect(token){const socket=client('http://localhost:'+server.address().port,{auth:{token},transports:['websocket'],reconnection:false,autoConnect:false});sockets.push(socket);const views=[],events=[];socket.onAny(name=>events.push(name));socket.on('state:snapshot',v=>views.push(v));await new Promise((resolve,reject)=>{socket.once('state:snapshot',resolve);socket.once('connect_error',reject);socket.connect();});return {socket,views,events};}
  const command=(op,n)=>api.post('/api/activity/questions/'+op).set(bearer(f.teacher)).send({...f.body,questionNumber:n});
@@ -53,6 +53,6 @@ test('reauthenticated reconnect restores four phases without revision changes or
   }
   const active=await connect(f.students[1]);const invalid=new Promise(r=>active.socket.once('session:invalid',r));f.c.store.sessionsByTokenHash.clear();f.c.sync.changed();assert.equal((await invalid).code,'SESSION_INVALID');
   await assert.rejects(connect(f.students[0]),e=>e.data.code==='SESSION_INVALID');
-  const fresh=quizFixture(3);assert.equal((await request(fresh.app).get('/api/activity').set(bearer(f.students[0]))).status,401);
+  const fresh=await quizFixture(3);assert.equal((await request(fresh.app).get('/api/activity').set(bearer(f.students[0]))).status,401);
  }finally{sockets.forEach(s=>s.disconnect());await new Promise(r=>io.close(r));}
 });

@@ -1,14 +1,15 @@
+import {createFakeSheetsAccess} from '../../backend/tests/helpers/fake-sheets-access.js';
 import {attachRealtime} from '../../backend/src/realtime/socket-server.js';
 import {test,expect,chromium} from '../../frontend/node_modules/@playwright/test/index.mjs';
 import {createServer} from 'node:http';
-import {readFile,mkdtemp,rm} from 'node:fs/promises';
+import {mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,resolve,sep} from 'node:path';
 import {createApp} from '../../backend/src/app.js';
 import {loadConfig} from '../../backend/src/config.js';
 test('separate persistent browser identities claim and recover without takeover',async()=>{
  const baseURL=process.env.E2E_BASE_URL||'http://localhost:5173';
- const app=createApp({config:{...loadConfig({ADMIN_PASSWORD:'isolated-test-only'}),origin:baseURL}});const c=app.locals.context;await c.activity.import(await readFile(new URL('../fixtures/guided-notes/valid-a.xlsx',import.meta.url)),'notes.xlsx');c.activity.setGroups(3);
+ const app=createApp({config:{...loadConfig({ADMIN_PASSWORD:'isolated-test-only'}),origin:baseURL},sheetsAccess:createFakeSheetsAccess()});const c=app.locals.context;c.activity.setGroups(3);await c.activity.loadSource('https://docs.google.com/spreadsheets/d/synthetic-A/edit');
  const server=createServer(app);const realtime=attachRealtime(server,c);await new Promise(r=>server.listen(0,'localhost',r));const port=server.address().port;const paths=[];const contexts=[];
  async function browser(path){const context=await chromium.launchPersistentContext(path,{headless:true});contexts.push(context);await context.route(/\/(?:api\/|socket\.io\/)/,async route=>{const u=new URL(route.request().url());u.port=String(port);const response=await route.fetch({url:u.href});await route.fulfill({response});});return context;}
  try{for(let i=0;i<2;i++)paths.push(await mkdtemp(join(tmpdir(),'classroomquiz-e2e-profile-')));

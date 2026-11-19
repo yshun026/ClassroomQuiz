@@ -44,7 +44,7 @@ test('three-question lifecycle: measured updates, four-phase refresh, offline re
   await students[2].getByLabel('答案',{exact:true}).fill('Q3-answer');await students[2].getByRole('button',{name:'提交答案',exact:true}).click();await expect(teacher.getByRole('table',{name:'當題提交紀錄'})).toContainText('Q3-answer',{timeout:1900});measurements.push({question:3,submission:3,ms:Date.now()-changedAt});expect(measurements.at(-1).ms).toBeLessThan(2000);
   await teacher.getByRole('button',{name:'結束搶答',exact:true}).click();await phase(3,'COMPLETED');await reloadAll(3,'COMPLETED');
   for(const p of pages){await expect(p.getByRole('region',{name:'第 1 題結果'})).toContainText('Q1-answer');await expect(p.getByRole('region',{name:'第 3 題結果'})).toContainText('Q3-answer');}await expect(teacher.getByRole('button',{name:'下一題',exact:true})).toHaveCount(0);
-  await mkdir(new URL('../records/us4/',import.meta.url),{recursive:true});await writeFile(new URL('../records/us4/timings.json',import.meta.url),JSON.stringify(measurements,null,2));await teacher.screenshot({path:fileURLToPath(new URL('../records/us4/completed.png',import.meta.url)),fullPage:true});
+  await mkdir(new URL('../records/002-google-sheets-integration/us2-lifecycle/',import.meta.url),{recursive:true});await writeFile(new URL('../records/002-google-sheets-integration/us2-lifecycle/timings.json',import.meta.url),JSON.stringify(measurements,null,2));await teacher.screenshot({path:fileURLToPath(new URL('../records/002-google-sheets-integration/us2-lifecycle/completed.png',import.meta.url)),fullPage:true});
  }finally{await f.cleanup();}
 });
 
@@ -70,4 +70,26 @@ test('teacher and student reconnect in every phase; a lost submission reply neve
    if(stage!=='WAITING'&&stage!=='ANSWERING')expect(f.c.store.activity.questions.get(1).submissionsByGroup.size).toBe(1);
   }
  }finally{await f.cleanup();}
+});
+
+test('Google Access outage does not block an already loaded three-group quiz (fake cloud)',async({browser})=>{
+ const f=await scenario(browser,3);let release;
+ try{
+  let googleCalls=0;const pending=new Promise(r=>{release=r;});
+  f.c.sheetsAccess.getSource=async()=>{googleCalls++;await pending;throw Error('synthetic Google outage');};
+  const cloud=f.c.sheetsAccess.getSource('synthetic-quiz').catch(e=>e.message);
+  const teacher=await f.pageFor(f.teacher,'teacher'),students=await Promise.all(f.students.map(token=>f.pageFor(token,'student')));
+  for(let n=1;n<=3;n++){
+   await teacher.getByRole('button',{name:'開始搶答',exact:true}).click();
+   await expect(students[2].getByRole('status').first()).toContainText('ANSWERING',{timeout:1900});
+   await students[0].getByLabel('答案',{exact:true}).fill('offline-cloud-'+n);await students[0].getByRole('button',{name:'提交答案',exact:true}).click();
+   await expect(teacher.getByRole('table',{name:'當題提交紀錄'})).toContainText('offline-cloud-'+n,{timeout:1900});
+   await expect(students[1].getByText('offline-cloud-'+n,{exact:true})).toHaveCount(0);
+   await teacher.getByRole('button',{name:'結束搶答',exact:true}).click();
+   await expect(students[2].getByRole('region',{name:`第 ${n} 題結果`})).toContainText('offline-cloud-'+n);
+   if(n<3){await teacher.getByRole('button',{name:'下一題',exact:true}).click();await expect(students[1].getByRole('status').first()).toContainText('WAITING');}
+  }
+  await expect(teacher.getByRole('status').first()).toContainText('COMPLETED');expect(googleCalls).toBe(1);
+  const before=f.c.activity.teacherView();release();await cloud;expect(f.c.activity.teacherView()).toEqual(before);
+ }finally{release?.();await f.cleanup();}
 });

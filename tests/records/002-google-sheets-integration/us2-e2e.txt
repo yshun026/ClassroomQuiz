@@ -1,0 +1,30 @@
+
+> classroomquiz-frontend@1.0.0 test:e2e
+> playwright test --config ../tests/e2e/playwright.config.js
+
+[WebServer] (node:6844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:3064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 ..\tests\e2e\convergence-regressions.spec.js:8:1 › literal browser answer retains historical XLSX helper fidelity without formal Excel UI (2.6s)
+  ok  2 ..\tests\e2e\full-activity.spec.js:8:1 › Sheets-prepared quiz: login, three groups, late join, close, results, legacy fidelity and reset (5.2s)
+  ok  3 ..\tests\e2e\guided-notes-export.spec.js:7:1 › historical XLSX helper in all phases preserves fidelity and authorization without formal Excel UI (3.7s)
+  ok  4 ..\tests\e2e\realtime-lifecycle.spec.js:7:1 › teacher ignores delayed preparation after a newer ANSWERING snapshot (668ms)
+  ok  5 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old success response after identity changes (563ms)
+  ok  6 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old invalid response after identity changes (564ms)
+  ok  7 ..\tests\e2e\realtime-lifecycle.spec.js:15:56 › student discards old new-activity response after identity changes (772ms)
+  ok  8 ..\tests\e2e\realtime-lifecycle.spec.js:29:1 › three-question lifecycle: measured updates, four-phase refresh, offline restore and no answer replay (5.3s)
+  ok  9 ..\tests\e2e\realtime-lifecycle.spec.js:51:1 › backend identity loss clears student state and requires new teacher login (1.1s)
+  ok 10 ..\tests\e2e\realtime-lifecycle.spec.js:55:1 › teacher and student reconnect in every phase; a lost submission reply never replays the answer (10.7s)
+  ok 11 ..\tests\e2e\realtime-lifecycle.spec.js:75:1 › Google Access outage does not block an already loaded three-group quiz (fake cloud) (2.1s)
+  ok 12 ..\tests\e2e\single-question.spec.js:13:1 › single question: manual start, private submissions, teacher live ranks and final publication within two seconds (2.4s)
+  ok 13 ..\tests\e2e\single-question.spec.js:29:1 › teacher can close an unanswered non-final question and publish no answers (1.1s)
+  ok 14 ..\tests\e2e\student-identity.spec.js:10:1 › separate persistent browser identities claim and recover without takeover (8.5s)
+  ok 15 ..\tests\e2e\teacher-preparation.spec.js:3:1 › teacher imports Google Sheets URL with safe retry and source recovery (fake API) (1.2s)
+
+  15 passed (59.0s)
